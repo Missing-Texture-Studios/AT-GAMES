@@ -4,10 +4,13 @@
 [ext_resource type="Script" uid="uid://bwf0u1ywt4xr5" path="res://scripts/UI/menu.gd" id="1_svcqa"]
 [ext_resource type="Shader" uid="uid://m76q0f4ww1mp" path="res://scripts/UI/bloom.gdshader" id="2_ny0ke"]
 [ext_resource type="Texture2D" uid="uid://b8gw2xqkc1nn3" path="res://sprites/UI/title.png" id="3_78n2u"]
+[ext_resource type="Texture2D" uid="uid://bhbjc34yxpsp6" path="res://sprites/player/portrait.png" id="3_aklih"]
 [ext_resource type="FontFile" uid="uid://db5282d4yqiam" path="res://fonts/TINY5-REGULAR.TTF" id="4_svcqa"]
+[ext_resource type="Script" uid="uid://dy141q0pfhnyg" path="res://scripts/UI/portrait.gd" id="4_wav1i"]
 [ext_resource type="Script" uid="uid://bamn3eea723td" path="res://scripts/UI/any_key.gd" id="5_78n2u"]
 [ext_resource type="Texture2D" uid="uid://qq5pggh0qh8o" path="res://sprites/UI/UIBox2-9slice.png" id="6_svcqa"]
 [ext_resource type="Shader" uid="uid://cntw0a4n6v6gy" path="res://scripts/UI/burn.gdshader" id="8_ofy2k"]
+[ext_resource type="Shader" uid="uid://dnofi80vnucdx" path="res://scripts/UI/blur.gdshader" id="9_wav1i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r4msk"]
 shader = ExtResource("1_iysyy")
@@ -21,6 +24,63 @@ shader_parameter/color_mid_threshold = 0.48
 shader_parameter/color_low = Color(0.072469704, 0.025651976, 0.15967414, 1)
 shader_parameter/color_mid = Color(0.34058186, 0.25996923, 0.3171173, 1)
 shader_parameter/color_high = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3b8ea"]
+atlas = ExtResource("3_aklih")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ruad"]
+atlas = ExtResource("3_aklih")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7amk3"]
+atlas = ExtResource("3_aklih")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uviw4"]
+atlas = ExtResource("3_aklih")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cr4s1"]
+atlas = ExtResource("3_aklih")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45usf"]
+atlas = ExtResource("3_aklih")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8qjh"]
+atlas = ExtResource("3_aklih")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r4msk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3b8ea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ruad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7amk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uviw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cr4s1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45usf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8qjh")
+}],
+"loop": 0,
+"name": &"blink",
+"speed": 12.0
+}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8wi8e"]
 shader = ExtResource("2_ny0ke")
@@ -200,6 +260,10 @@ _data = {
 &"move": SubResource("Animation_2ruad")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7860b"]
+shader = ExtResource("9_wav1i")
+shader_parameter/blur_lod = 2.50000011875
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r4msk"]
 texture = ExtResource("6_svcqa")
 texture_margin_left = 5.0
@@ -293,6 +357,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [2]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Portrait:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1408, 918)]
+}
 
 [sub_resource type="Animation" id="Animation_45usf"]
 resource_name = "fade"
@@ -371,6 +447,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(0.20306315, 1),
 "update": 0,
 "values": [Vector2(-231, 448), Vector2(33, 448)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Portrait:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.24148414, 1),
+"update": 0,
+"values": [Vector2(1362, 918), Vector2(790, 404)]
 }
 
 [sub_resource type="Animation" id="Animation_cr4s1"]
@@ -454,6 +542,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Portrait" type="AnimatedSprite2D" parent="CanvasLayer/Control" unique_id=1428954903 node_paths=PackedStringArray("blink_timer")]
+texture_filter = 1
+position = Vector2(1408, 918)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_r4msk")
+animation = &"blink"
+script = ExtResource("4_wav1i")
+blink_timer = NodePath("BlinkTimer")
+
+[node name="BlinkTimer" type="Timer" parent="CanvasLayer/Control/Portrait" unique_id=1413698760]
+wait_time = 5.0
+autostart = true
+
 [node name="Title" type="TextureRect" parent="CanvasLayer/Control" unique_id=130559134]
 texture_filter = 1
 material = SubResource("ShaderMaterial_8wi8e")
@@ -504,6 +605,7 @@ autoplay = &"glow"
 
 [node name="OptionsPanel" type="Panel" parent="CanvasLayer/Control" unique_id=2106140582]
 texture_filter = 1
+material = SubResource("ShaderMaterial_7860b")
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -667,6 +769,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
+[connection signal="timeout" from="CanvasLayer/Control/Portrait/BlinkTimer" to="CanvasLayer/Control/Portrait" method="_on_blink_timer_timeout"]
 [connection signal="button_up" from="CanvasLayer/Control/NewGame" to="." method="_on_new_game_button_up"]
 [connection signal="button_up" from="CanvasLayer/Control/Options" to="." method="_on_options_button_up"]
 [connection signal="button_up" from="CanvasLayer/Control/Quit" to="." method="_on_quit_button_up"]
