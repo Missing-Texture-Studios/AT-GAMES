@@ -1,0 +1,270 @@
+[gd_scene format=3 uid="uid://c8ux4fd1gqjvr"]
+
+[ext_resource type="Script" uid="uid://m713vd5olibo" path="res://scripts/UI/dialog_box.gd" id="1_3c0qx"]
+[ext_resource type="Texture2D" uid="uid://cb46teb14mfcq" path="res://sprites/UI/UIBox9slice.png" id="2_0te4t"]
+[ext_resource type="Texture2D" uid="uid://dp0jjnn0kblpi" path="res://sprites/UI/Dialog Portraits/placeholder.png" id="3_vmfw0"]
+[ext_resource type="FontFile" uid="uid://db5282d4yqiam" path="res://fonts/TINY5-REGULAR.TTF" id="4_ot05l"]
+[ext_resource type="Texture2D" uid="uid://cxuo3j2wkrj14" path="res://sprites/UI/DialogChooser.png" id="5_0te4t"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qgh4p"]
+texture = ExtResource("2_0te4t")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="Animation" id="Animation_yur3h"]
+resource_name = "Close"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.13869628, 0),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.0042361547, 0.03977912)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel/Dialog Text:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6xjqw"]
+resource_name = "Open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.21022417, 1),
+"update": 0,
+"values": [Vector2(0.0042361547, 0.03977912), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel/Dialog Text:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ewa7i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel/Dialog Text:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_sn4a1"]
+resource_name = "Reveal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/Dialog Text:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ubcem"]
+_data = {
+&"Close": SubResource("Animation_yur3h"),
+&"Open": SubResource("Animation_6xjqw"),
+&"RESET": SubResource("Animation_ewa7i"),
+&"Reveal": SubResource("Animation_sn4a1")
+}
+
+[node name="Dialog Box" type="Control" unique_id=2036165089 groups=["dialogUI"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3c0qx")
+
+[node name="Panel" type="Panel" parent="." unique_id=1469254476]
+texture_filter = 1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -376.0
+offset_top = -217.0
+offset_right = 376.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxTexture_qgh4p")
+
+[node name="Portrait" type="TextureRect" parent="Panel" unique_id=753779317]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = -143.0
+offset_right = 145.0
+offset_bottom = -21.0
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_vmfw0")
+
+[node name="Dialog Name" type="Label" parent="Panel" unique_id=811433391]
+layout_mode = 1
+offset_left = 15.0
+offset_top = 20.0
+offset_right = 153.0
+offset_bottom = 43.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("4_ot05l")
+theme_override_font_sizes/font_size = 20
+text = "[Speaker Name]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Response1" type="Label" parent="Panel" unique_id=1036175942]
+layout_mode = 1
+offset_left = 487.0
+offset_top = 155.0
+offset_right = 608.0
+offset_bottom = 192.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("4_ot05l")
+theme_override_font_sizes/font_size = 20
+text = "Response 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Selector" type="TextureRect" parent="Panel/Response1" unique_id=406998802]
+texture_filter = 1
+layout_mode = 0
+offset_left = -19.0
+offset_top = 8.0
+offset_right = 3.0
+offset_bottom = 30.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("5_0te4t")
+
+[node name="Response2" type="Label" parent="Panel" unique_id=954838630]
+layout_mode = 1
+offset_left = 622.0
+offset_top = 155.0
+offset_right = 743.0
+offset_bottom = 192.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("4_ot05l")
+theme_override_font_sizes/font_size = 20
+text = "Response 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Selector" type="TextureRect" parent="Panel/Response2" unique_id=604285236]
+texture_filter = 1
+layout_mode = 0
+offset_left = -19.0
+offset_top = 8.0
+offset_right = 3.0
+offset_bottom = 30.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("5_0te4t")
+
+[node name="Dialog Text" type="Label" parent="Panel" unique_id=1615240240]
+layout_mode = 1
+offset_left = 153.0
+offset_top = 57.0
+offset_right = 736.0
+offset_bottom = 179.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("4_ot05l")
+theme_override_font_sizes/font_size = 20
+text = "This is placeholder text fo the dialog, bla bla bla bla"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=704601605]
+libraries/ = SubResource("AnimationLibrary_ubcem")

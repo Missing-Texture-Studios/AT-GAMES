@@ -1,0 +1,192 @@
+[gd_scene format=4 uid="uid://c1c3tcay85c1d"]
+
+[ext_resource type="Texture2D" uid="uid://dhqj32hwnhgmx" path="res://sprites/tiles/set1.png" id="2_7iodv"]
+[ext_resource type="PackedScene" uid="uid://1upd4ykfqxxh" path="res://scenes/actors/player.tscn" id="2_o3n0h"]
+[ext_resource type="PackedScene" uid="uid://btvsodrnyloj1" path="res://scenes/actors/object_interaction.tscn" id="3_o3n0h"]
+[ext_resource type="Texture2D" uid="uid://dp0jjnn0kblpi" path="res://sprites/UI/Dialog Portraits/placeholder.png" id="4_qoqmi"]
+[ext_resource type="Script" uid="uid://ci8q6enq6io4g" path="res://scripts/objects/dialog_line.gd" id="5_pjele"]
+[ext_resource type="Script" uid="uid://756q1we4m7p0" path="res://scripts/objects/dialog_action.gd" id="6_7iodv"]
+[ext_resource type="Script" uid="uid://l80rkg5kol2g" path="res://scripts/objects/dialog_response.gd" id="6_ibx7c"]
+[ext_resource type="Texture2D" uid="uid://vowklex2vbej" path="res://sprites/objects/coin.png" id="7_pjele"]
+[ext_resource type="PackedScene" uid="uid://d20e1uf86vm13" path="res://scenes/actors/slime.tscn" id="9_7iodv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_00m6f"]
+texture = ExtResource("2_7iodv")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 8, 16, 8, 16, -16, -16, -16)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, 16, 16, -8, -16, -8)
+6:1/0 = 0
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -16, -8, 16, 16, 16, 16, -16)
+5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 16, -8, 16, 16, -8, 16)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, -8, -16, 16, -16, 16, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -8, 8, -8, 8, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 8, 8, 8, 8, -16, -16, -16)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 16, -16, 16, -16, -16, 8, -16)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -8, -16, 16, 16, 16, 16, -8)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 8, 16, 8, 16, -16, -16, -16)
+
+[sub_resource type="TileSet" id="TileSet_r4msk"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_00m6f")
+
+[sub_resource type="Resource" id="Resource_o3n0h"]
+script = ExtResource("5_pjele")
+dialog_name = "Test Guy"
+dialog_portrait = ExtResource("4_qoqmi")
+dialog_text = "Hey there! I'm Test Guy!"
+next_index = 1
+metadata/_custom_type_script = "uid://ci8q6enq6io4g"
+
+[sub_resource type="Resource" id="Resource_pjele"]
+script = ExtResource("6_ibx7c")
+text = "Yes"
+target_index = 2
+metadata/_custom_type_script = "uid://l80rkg5kol2g"
+
+[sub_resource type="Resource" id="Resource_ibx7c"]
+script = ExtResource("6_ibx7c")
+text = "No"
+target_index = 3
+metadata/_custom_type_script = "uid://l80rkg5kol2g"
+
+[sub_resource type="Resource" id="Resource_qoqmi"]
+script = ExtResource("5_pjele")
+index = 1
+dialog_name = "Test Guy"
+dialog_portrait = ExtResource("4_qoqmi")
+dialog_text = "Do you like my big question mark?"
+has_responses = true
+response_1 = SubResource("Resource_pjele")
+response_2 = SubResource("Resource_ibx7c")
+metadata/_custom_type_script = "uid://ci8q6enq6io4g"
+
+[sub_resource type="Resource" id="Resource_7iodv"]
+script = ExtResource("5_pjele")
+index = 2
+dialog_name = "Test Guy"
+dialog_portrait = ExtResource("4_qoqmi")
+dialog_text = "Yaaaay! Thanks!"
+metadata/_custom_type_script = "uid://ci8q6enq6io4g"
+
+[sub_resource type="Resource" id="Resource_00m6f"]
+script = ExtResource("5_pjele")
+index = 3
+dialog_name = "Test Guy"
+dialog_portrait = ExtResource("4_qoqmi")
+dialog_text = "Awwww, you made me sad... :("
+metadata/_custom_type_script = "uid://ci8q6enq6io4g"
+
+[sub_resource type="Resource" id="Resource_q2e4k"]
+script = ExtResource("5_pjele")
+dialog_text = "There is a coin on the ground..."
+next_index = 1
+metadata/_custom_type_script = "uid://ci8q6enq6io4g"
+
+[sub_resource type="Resource" id="Resource_r6tr0"]
+script = ExtResource("6_7iodv")
+action_node = NodePath("../Player")
+action_method = &"addItem"
+action_parameters = [1, 1]
+metadata/_custom_type_script = "uid://756q1we4m7p0"
+
+[sub_resource type="Resource" id="Resource_b8mke"]
+script = ExtResource("6_7iodv")
+action_method = &"queue_free"
+metadata/_custom_type_script = "uid://756q1we4m7p0"
+
+[sub_resource type="Resource" id="Resource_o5aat"]
+script = ExtResource("6_ibx7c")
+text = "Yes"
+actions = Array[ExtResource("6_7iodv")]([SubResource("Resource_r6tr0"), SubResource("Resource_b8mke")])
+target_index = 2
+close_after_action = false
+metadata/_custom_type_script = "uid://l80rkg5kol2g"
+
+[sub_resource type="Resource" id="Resource_3se8m"]
+script = ExtResource("6_ibx7c")
+text = "No"
+target_index = 3
+close_after_action = false
+metadata/_custom_type_script = "uid://l80rkg5kol2g"
+
+[sub_resource type="Resource" id="Resource_qnp3f"]
+script = ExtResource("5_pjele")
+index = 1
+dialog_text = "Take the coin?"
+has_responses = true
+response_1 = SubResource("Resource_o5aat")
+response_2 = SubResource("Resource_3se8m")
+metadata/_custom_type_script = "uid://ci8q6enq6io4g"
+
+[sub_resource type="Resource" id="Resource_auue8"]
+script = ExtResource("5_pjele")
+index = 2
+dialog_text = "You took the coin."
+metadata/_custom_type_script = "uid://ci8q6enq6io4g"
+
+[sub_resource type="Resource" id="Resource_yti6m"]
+script = ExtResource("5_pjele")
+index = 3
+dialog_text = "You did not take the coin."
+metadata/_custom_type_script = "uid://ci8q6enq6io4g"
+
+[node name="TEST_MAP" type="Node2D" unique_id=840365967]
+
+[node name="TileMapLayer3" type="TileMapLayer" parent="." unique_id=1430651394]
+light_mask = 3
+texture_filter = 1
+tile_map_data = PackedByteArray("AAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAAAAAD8////AAAAAAAAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAAAAAD8/wIAAAAAAAAAAAD8/wMAAAAAAAAAAAD9//z/AAAAAAAAAAD9//3/AAAAAAAAAAD9//7/AAAAAAAAAAD9////AAAAAAAAAAD9/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wIAAAAAAAAAAAD9/wMAAAAAAAAAAAD+//z/AAAAAAAAAAD+//3/AAAAAAAAAAD+//7/AAAAAAAAAAD+////AAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD+/wIAAAAAAAAAAAD+/wMAAAAAAAAAAAD///z/AAAAAAAAAAD///3/AAAAAAAAAAD///7/AAAAAAAAAAD/////AAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wMAAAABAAAAAAAAAPz/AAAAAAAAAAAAAP3/AAAAAAAAAAAAAP7/AAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAABAPz/AAAAAAAAAAABAP3/AAAAAAAAAAABAP7/AAAAAAAAAAABAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAACAPz/AAAAAAAAAAACAP3/AAAAAAAAAAACAP7/AAAAAAAAAAACAP//AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAADAPz/AAAAAAAAAAADAP3/AAAAAAAAAAADAP7/AAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAABAAAAAAD7//v/AAAAAAAAAAD7//z/AAAAAAAAAAD7//3/AAABAAAAAAD7//7/AAAAAAAAAAD7////AAAAAAAAAAD7/wAAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wIAAAABAAAAAAD7/wMAAAAAAAAAAAD7/wQAAAAAAAAAAAD8//v/AAAAAAAAAAD8/wQAAAABAAAAAAD9//v/AAAAAAAAAAD9/wQAAAAAAAAAAAD+//v/AAAAAAAAAAD+/wQAAAAAAAAAAAD///v/AAABAAAAAAD//wQAAAAAAAAAAAAAAPv/AAAAAAAAAAAAAAQAAAAAAAAAAAABAPv/AAAAAAAAAAABAAQAAAAAAAAAAAACAPv/AAAAAAAAAAACAAQAAAAAAAAAAAADAPv/AAAAAAAAAAADAAQAAAAAAAAAAAAEAPv/AAAAAAAAAAAEAPz/AAABAAAAAAAEAP3/AAAAAAAAAAAEAP7/AAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAD6//r/AAAAAAAAAAD6//v/AAAAAAAAAAD6//z/AAAAAAAAAAD6//3/AAAAAAAAAAD6//7/AAAAAAAAAAD6////AAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD6/wIAAAAAAAAAAAD6/wMAAAAAAAAAAAD6/wQAAAAAAAAAAAD6/wUAAAAAAAAAAAD7//r/AAAAAAAAAAD7/wUAAAAAAAAAAAD8//r/AAAAAAAAAAD8/wUAAAAAAAAAAAD9//r/AAAAAAAAAAD9/wUAAAAAAAAAAAD+//r/AAAAAAAAAAD+/wUAAAAAAAAAAAD///r/AAAAAAAAAAD//wUAAAAAAAAAAAAAAPr/AAAAAAAAAAAAAAUAAAAAAAAAAAABAPr/AAAAAAAAAAABAAUAAAAAAAAAAAACAPr/AAAAAAAAAAACAAUAAAAAAAAAAAADAPr/AAAAAAAAAAADAAUAAAAAAAAAAAAEAPr/AAAAAAAAAAAEAAUAAAAAAAAAAAAFAPr/AAAAAAAAAAAFAPv/AAAAAAAAAAAFAPz/AAAAAAAAAAAFAP3/AAAAAAAAAAAFAP7/AAAAAAAAAAAFAP//AAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAD6//j/AAACAAAAAAD6//n/AAACAAAAAAD7//j/AAACAAAAAAD7//n/AAACAAAAAAD8//j/AAACAAAAAAD8//n/AAACAAAAAAD9//j/AAACAAAAAAD9//n/AAACAAAAAAD+//j/AAACAAAAAAD+//n/AAACAAAAAAD///j/AAACAAAAAAD///n/AAACAAAAAAAAAPj/AAACAAAAAAAAAPn/AAACAAAAAAABAPj/AAACAAAAAAABAPn/AAACAAAAAAACAPj/AAACAAAAAAACAPn/AAACAAAAAAADAPj/AAACAAAAAAADAPn/AAACAAAAAAAEAPj/AAACAAAAAAAEAPn/AAACAAAAAAAFAPj/AAACAAAAAAAFAPn/AAACAAAAAAAGAPj/AAACAAAAAAAGAPn/AAACAAAAAAAGAPr/AAACAAAAAAAGAPv/AAACAAAAAAAGAPz/AAACAAAAAAAGAP3/AAACAAAAAAAGAP7/AAACAAAAAAAGAP//AAACAAAAAAAGAAAAAAACAAAAAAAGAAEAAAACAAAAAAAGAAIAAAACAAAAAAAGAAMAAAACAAAAAAAGAAQAAAACAAAAAAAGAAUAAAACAAAAAAAHAPj/AAACAAAAAAAHAPn/AAACAAAAAAAHAPr/AAACAAAAAAAHAPv/AAACAAAAAAAHAPz/AAACAAAAAAAHAP3/AAACAAAAAAAHAP7/AAACAAAAAAAHAP//AAACAAAAAAAHAAAAAAACAAAAAAAHAAEAAAACAAAAAAAHAAIAAAACAAAAAAAHAAMAAAACAAAAAAAHAAQAAAACAAAAAAAHAAUAAAACAAAAAAD6/wYAAAACAAAAAAD6/wcAAAACAAAAAAD7/wYAAAACAAAAAAD7/wcAAAACAAAAAAD8/wYAAAACAAAAAAD8/wcAAAACAAAAAAD9/wYAAAACAAAAAAD9/wcAAAACAAAAAAD+/wYAAAACAAAAAAD+/wcAAAACAAAAAAD//wYAAAACAAAAAAD//wcAAAACAAAAAAAAAAYAAAACAAAAAAAAAAcAAAACAAAAAAABAAYAAAACAAAAAAABAAcAAAACAAAAAAACAAYAAAACAAAAAAACAAcAAAACAAAAAAADAAYAAAACAAAAAAADAAcAAAACAAAAAAAEAAYAAAACAAAAAAAEAAcAAAACAAAAAAAFAAYAAAACAAAAAAAFAAcAAAACAAAAAAAGAAYAAAACAAAAAAAGAAcAAAACAAAAAAAHAAYAAAACAAAAAAAHAAcAAAACAAAAAAD4//j/AAACAAAAAAD4//n/AAACAAAAAAD4//r/AAACAAAAAAD4//v/AAACAAAAAAD4//z/AAACAAAAAAD4//3/AAACAAAAAAD4//7/AAACAAAAAAD4////AAACAAAAAAD4/wAAAAACAAAAAAD4/wEAAAACAAAAAAD4/wIAAAACAAAAAAD4/wMAAAACAAAAAAD4/wQAAAACAAAAAAD4/wUAAAACAAAAAAD4/wYAAAACAAAAAAD4/wcAAAACAAAAAAD5//j/AAACAAAAAAD5//n/AAACAAAAAAD5//r/AAACAAAAAAD5//v/AAACAAAAAAD5//z/AAACAAAAAAD5//3/AAACAAAAAAD5//7/AAACAAAAAAD5////AAACAAAAAAD5/wAAAAACAAAAAAD5/wEAAAACAAAAAAD5/wIAAAACAAAAAAD5/wMAAAACAAAAAAD5/wQAAAACAAAAAAD5/wUAAAACAAAAAAD5/wYAAAACAAAAAAD5/wcAAAACAAAAAAD4//b/AAABAAIAAAD5//b/AAABAAIAAAD6//b/AAABAAIAAAD7//b/AAABAAIAAAD8//b/AAABAAIAAAD9//b/AAABAAIAAAD+//b/AAABAAIAAAD///b/AAABAAIAAAAAAPb/AAABAAIAAAABAPb/AAABAAIAAAACAPb/AAABAAIAAAADAPb/AAABAAIAAAAEAPb/AAABAAIAAAAFAPb/AAABAAIAAAAGAPb/AAABAAIAAAAHAPb/AAABAAIAAAD4//f/AAADAAAAAAD5//f/AAADAAAAAAD6//f/AAADAAAAAAD7//f/AAADAAAAAAD8//f/AAADAAAAAAD9//f/AAADAAAAAAD+//f/AAADAAAAAAD///f/AAADAAAAAAAAAPf/AAADAAAAAAABAPf/AAADAAAAAAACAPf/AAADAAAAAAADAPf/AAADAAAAAAAEAPf/AAADAAAAAAAFAPf/AAADAAAAAAAGAPf/AAADAAAAAAAHAPf/AAADAAAAAAAIAPb/AAABAAEAAAD3//b/AAADAAEAAAD3//f/AAAGAAEAAAD3//j/AAAGAAEAAAD3//n/AAAGAAEAAAD3//r/AAAGAAEAAAD3//v/AAAGAAEAAAD3//z/AAAGAAEAAAD3//3/AAAGAAEAAAD3//7/AAAGAAEAAAD3////AAAGAAEAAAD3/wAAAAAGAAEAAAD3/wEAAAAGAAEAAAD3/wIAAAAGAAEAAAD3/wMAAAAGAAEAAAD3/wQAAAAGAAEAAAD3/wUAAAAGAAEAAAD3/wYAAAAGAAEAAAD3/wcAAAAGAAEAAAAIAPf/AAAAAAIAAAAIAPj/AAAAAAIAAAAIAPn/AAAAAAIAAAAIAPr/AAAAAAIAAAAIAPv/AAAAAAIAAAAIAPz/AAAAAAIAAAAIAP3/AAAAAAIAAAAIAP7/AAAAAAIAAAAIAP//AAAAAAIAAAAIAAAAAAAAAAIAAAAIAAEAAAAAAAIAAAAIAAIAAAAAAAIAAAAIAAMAAAAAAAIAAAAIAAQAAAAAAAIAAAAIAAUAAAAAAAIAAAAIAAYAAAAAAAIAAAAIAAcAAAAAAAIAAAAIAAgAAAAAAAEAAAD3/wgAAAACAAEAAAD4/wgAAAACAAIAAAD5/wgAAAACAAIAAAD6/wgAAAACAAIAAAD7/wgAAAACAAIAAAD8/wgAAAACAAIAAAD9/wgAAAACAAIAAAD+/wgAAAACAAIAAAD//wgAAAACAAIAAAAAAAgAAAACAAIAAAABAAgAAAACAAIAAAACAAgAAAACAAIAAAADAAgAAAACAAIAAAAEAAgAAAACAAIAAAAFAAgAAAACAAIAAAAGAAgAAAACAAIAAAAHAAgAAAACAAIAAAA=")
+tile_set = SubResource("TileSet_r4msk")
+
+[node name="Player" parent="." unique_id=1223342948 instance=ExtResource("2_o3n0h")]
+inventory = null
+
+[node name="Test Guy" parent="." unique_id=181290687 instance=ExtResource("3_o3n0h")]
+light_mask = 3
+position = Vector2(0, -41)
+dialog = Array[ExtResource("5_pjele")]([SubResource("Resource_o3n0h"), SubResource("Resource_qoqmi"), SubResource("Resource_7iodv"), SubResource("Resource_00m6f")])
+
+[node name="Coin" parent="." unique_id=957759188 instance=ExtResource("3_o3n0h")]
+light_mask = 3
+position = Vector2(40, 0)
+dialog = Array[ExtResource("5_pjele")]([SubResource("Resource_q2e4k"), SubResource("Resource_qnp3f"), SubResource("Resource_auue8"), SubResource("Resource_yti6m")])
+
+[node name="Sprite2D" parent="Coin" index="0" unique_id=395102337]
+texture = ExtResource("7_pjele")
+
+[node name="CollisionShape2D" parent="Coin" index="1" unique_id=33977075]
+scale = Vector2(0.45703563, 0.416245)
+disabled = true
+
+[node name="CollisionShape2D" parent="Coin/Area2D" parent_id_path=PackedInt32Array(957759188, 1588132340) index="0" unique_id=1501171699]
+position = Vector2(0, 0)
+scale = Vector2(1.1184977, 1.0430232)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1813564898]
+color = Color(0.23139414, 0.14247066, 0.1778211, 1)
+
+[node name="Slime" parent="." unique_id=79141559 instance=ExtResource("9_7iodv")]
+position = Vector2(214, -2)
+
+[editable path="Coin"]

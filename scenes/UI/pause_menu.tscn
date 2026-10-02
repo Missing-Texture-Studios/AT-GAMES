@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://i721n3rxl4k8"]
+
+[ext_resource type="Script" uid="uid://doakour2d3n0u" path="res://scripts/UI/pause.gd" id="1_mko1u"]
+[ext_resource type="Texture2D" uid="uid://qq5pggh0qh8o" path="res://sprites/UI/UIBox2-9slice.png" id="1_qo2fb"]
+[ext_resource type="FontFile" uid="uid://db5282d4yqiam" path="res://fonts/TINY5-REGULAR.TTF" id="2_bl585"]
+[ext_resource type="Shader" uid="uid://dnofi80vnucdx" path="res://scripts/UI/blur.gdshader" id="2_feath"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_feath"]
+shader = ExtResource("2_feath")
+shader_parameter/blur_lod = 2.000000095
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e0ryh"]
+texture = ExtResource("1_qo2fb")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[node name="PauseMenu" type="Control" unique_id=173468364]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mko1u")
+
+[node name="Panel" type="Panel" parent="." unique_id=539217944]
+texture_filter = 1
+material = SubResource("ShaderMaterial_feath")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -560.0
+offset_top = -302.0
+offset_right = 560.0
+offset_bottom = 302.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_e0ryh")
+
+[node name="Label" type="Label" parent="Panel" unique_id=1866951653]
+layout_mode = 1
+offset_left = 31.0
+offset_top = 16.0
+offset_right = 199.0
+offset_bottom = 88.0
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 64
+text = "Pause"
+
+[node name="Resume" type="Button" parent="Panel" unique_id=988846465]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 103.0
+offset_right = 196.0
+offset_bottom = 165.0
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 48
+text = "Resume"
+flat = true
+alignment = 0
+
+[node name="Quit" type="Button" parent="Panel" unique_id=1932472319]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 170.0
+offset_right = 196.0
+offset_bottom = 232.0
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 48
+text = "Quit"
+flat = true
+alignment = 0
+
+[connection signal="button_up" from="Panel/Resume" to="." method="pause_toggle"]

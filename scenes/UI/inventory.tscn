@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://j4njooqlh70g"]
+
+[ext_resource type="Script" uid="uid://bj10w4i1gpec0" path="res://scripts/player/inventory.gd" id="1_krngk"]
+[ext_resource type="Shader" uid="uid://dnofi80vnucdx" path="res://scripts/UI/blur.gdshader" id="2_kpdmy"]
+[ext_resource type="Texture2D" uid="uid://qq5pggh0qh8o" path="res://sprites/UI/UIBox2-9slice.png" id="3_qjyq4"]
+[ext_resource type="FontFile" uid="uid://db5282d4yqiam" path="res://fonts/TINY5-REGULAR.TTF" id="4_5nor7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7860b"]
+shader = ExtResource("2_kpdmy")
+shader_parameter/blur_lod = 2.50000011875
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e0ryh"]
+texture = ExtResource("3_qjyq4")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0w4p8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xx81n"]
+texture = ExtResource("3_qjyq4")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+modulate_color = Color(1, 1, 1, 0.5921569)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0w4p8"]
+texture = ExtResource("3_qjyq4")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="Animation" id="Animation_7860b"]
+resource_name = "Close"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.13397177, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_xx81n"]
+resource_name = "Open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.12940823, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0w4p8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wl55n"]
+_data = {
+&"Close": SubResource("Animation_7860b"),
+&"Open": SubResource("Animation_xx81n"),
+&"RESET": SubResource("Animation_0w4p8")
+}
+
+[node name="Inventory" type="Control" unique_id=775052286]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_krngk")
+
+[node name="Panel" type="Panel" parent="." unique_id=2004127570]
+texture_filter = 1
+material = SubResource("ShaderMaterial_7860b")
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -268.0
+offset_right = 512.0
+offset_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+offset_transform_enabled = true
+theme_override_styles/panel = SubResource("StyleBoxTexture_e0ryh")
+
+[node name="Label" type="Label" parent="Panel" unique_id=1863963086]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 212.0
+offset_bottom = 74.0
+theme_override_fonts/font = ExtResource("4_5nor7")
+theme_override_font_sizes/font_size = 48
+text = "Inventory"
+
+[node name="ItemList" type="ItemList" parent="Panel" unique_id=607595469]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -477.0
+offset_top = -171.0
+offset_right = 477.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("4_5nor7")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0w4p8")
+theme_override_styles/hovered = SubResource("StyleBoxTexture_xx81n")
+theme_override_styles/hovered_selected = SubResource("StyleBoxTexture_0w4p8")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxTexture_0w4p8")
+theme_override_styles/selected = SubResource("StyleBoxTexture_0w4p8")
+theme_override_styles/selected_focus = SubResource("StyleBoxTexture_0w4p8")
+max_columns = 10
+icon_scale = 4.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1937823381]
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_wl55n")
+autoplay = &"RESET"
