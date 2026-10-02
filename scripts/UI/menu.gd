@@ -25,3 +25,9 @@ func _on_quit_button_up() -> void:
 	menu_anim.play("fade")
 	await menu_anim.animation_finished
 	get_tree().quit()
+
+
+func _on_new_game_button_up() -> void:
+	menu_anim.play("fade")
+	await menu_anim.animation_finished
+	Loading.load_scene("res://scenes/maps/test_map.tscn")

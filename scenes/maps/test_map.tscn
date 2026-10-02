@@ -160,7 +160,6 @@ tile_map_data = PackedByteArray("AAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAA
 tile_set = SubResource("TileSet_r4msk")
 
 [node name="Player" parent="." unique_id=1223342948 instance=ExtResource("2_o3n0h")]
-inventory = null
 
 [node name="Test Guy" parent="." unique_id=181290687 instance=ExtResource("3_o3n0h")]
 light_mask = 3

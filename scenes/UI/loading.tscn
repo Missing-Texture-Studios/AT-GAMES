@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://bwrfwpy8m74cx"]
+
+[ext_resource type="Shader" uid="uid://dr00f1ih4ny38" path="res://scripts/UI/outline.gdshader" id="1_eu0qv"]
+[ext_resource type="Texture2D" uid="uid://djl33d5jupdbt" path="res://sprites/enemies/slime/wiggle.png" id="2_t3ro0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8wi8e"]
+shader = ExtResource("1_eu0qv")
+shader_parameter/thickness = 1.0000000475
+shader_parameter/ring_count = 4
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 0.79999998584372
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m60b"]
+atlas = ExtResource("2_t3ro0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxj1t"]
+atlas = ExtResource("2_t3ro0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pig4l"]
+atlas = ExtResource("2_t3ro0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4u27"]
+atlas = ExtResource("2_t3ro0")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15nm2"]
+atlas = ExtResource("2_t3ro0")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tq50"]
+atlas = ExtResource("2_t3ro0")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1dvs"]
+atlas = ExtResource("2_t3ro0")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxct8"]
+atlas = ExtResource("2_t3ro0")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8j72"]
+atlas = ExtResource("2_t3ro0")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r4msk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m60b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxj1t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pig4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4u27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15nm2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tq50")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1dvs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxct8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8j72")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Loading" type="Node2D" unique_id=528210071]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1911214519]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1567861962]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control" unique_id=1534862289]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.019607844, 0, 0.05490196, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/ColorRect" unique_id=581285289]
+texture_filter = 1
+material = SubResource("ShaderMaterial_8wi8e")
+position = Vector2(1058, 556)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_r4msk")
+frame_progress = 0.9126209

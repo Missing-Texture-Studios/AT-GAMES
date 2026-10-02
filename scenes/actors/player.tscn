@@ -11,6 +11,7 @@
 [ext_resource type="Shader" uid="uid://dsps14wa0va04" path="res://scripts/UI/wiggle.gdshader" id="7_wl55n"]
 [ext_resource type="Texture2D" uid="uid://cg13y3iuejn67" path="res://sprites/FX/flashlightCookie.png" id="8_xx81n"]
 [ext_resource type="Script" uid="uid://biwgvfll1f101" path="res://scripts/player/flashlight.gd" id="9_0w4p8"]
+[ext_resource type="Shader" uid="uid://cntw0a4n6v6gy" path="res://scripts/UI/burn.gdshader" id="9_c4rn8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fpu37"]
 height = 28.0
@@ -198,6 +199,69 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_ypltb"]
+colors = PackedColorArray(0.019607844, 0, 0.05490196, 1, 0.43476868, 1.0757223e-05, 0.31905848, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nmlhc"]
+gradient = SubResource("Gradient_ypltb")
+
+[sub_resource type="Gradient" id="Gradient_h5w3c"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0878f"]
+frequency = 0.02
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dferu"]
+noise = SubResource("FastNoiseLite_0878f")
+color_ramp = SubResource("Gradient_h5w3c")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t62v4"]
+shader = ExtResource("9_c4rn8")
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/radius = 1.045
+shader_parameter/borderWidth = 0.2
+shader_parameter/burnMult = 0.34
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_dferu")
+shader_parameter/burnColor = Color(0, 0, 0, 1)
+shader_parameter/pixel_size = 0.006
+shader_parameter/blend_steps = 100.0
+shader_parameter/colorCurve = SubResource("GradientTexture2D_nmlhc")
+
+[sub_resource type="Animation" id="Animation_uqfkb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.045]
+}
+
+[sub_resource type="Animation" id="Animation_642so"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.045, -0.075]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_afsss"]
+_data = {
+&"RESET": SubResource("Animation_uqfkb"),
+&"fade": SubResource("Animation_642so")
+}
 
 [sub_resource type="Animation" id="Animation_0w4p8"]
 length = 0.001
@@ -630,6 +694,20 @@ layout_mode = 1
 [node name="PauseMenu" parent="Camera2D/CanvasLayer/UI" unique_id=173468364 instance=ExtResource("5_7860b")]
 visible = false
 layout_mode = 1
+
+[node name="Fade" type="ColorRect" parent="Camera2D/CanvasLayer/UI" unique_id=577743987]
+material = SubResource("ShaderMaterial_t62v4")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="fadeAnim" type="AnimationPlayer" parent="Camera2D/CanvasLayer/UI/Fade" unique_id=1103701845]
+libraries/ = SubResource("AnimationLibrary_afsss")
 
 [node name="InteractLabel" type="Label" parent="." unique_id=263063453]
 z_index = 2

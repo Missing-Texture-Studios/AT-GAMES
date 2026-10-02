@@ -14,8 +14,15 @@ extends CharacterBody2D
 @onready var damage_animation: AnimationPlayer = $DamageAnimationPlayer
 @onready var stam_bar: ProgressBar = $Camera2D/CanvasLayer/UI/StamBar
 @export var inventory: Array[InvItem]
+@onready var fade_anim: AnimationPlayer = $Camera2D/CanvasLayer/UI/Fade/fadeAnim
 
 var flashlight_battery = 100.0
+
+func fadein():
+	fade_anim.play("fade")
+	
+func fadeout():
+	fade_anim.play_backwards("fade")
 
 func addItem(ItemID: int, Amount: int):
 	# 1. Search the inventory to see if an item with this ID already exists
@@ -70,7 +77,7 @@ func _ready() -> void:
 	# por bloquear e liberar o movimento do jogador.
 	dialog_box.dialog_opened.connect(_on_dialog_opened)
 	dialog_box.dialog_closed.connect(_on_dialog_closed)
-
+	fadeout()
 
 func _process(_delta: float) -> void:
 	hp_bar.value = health

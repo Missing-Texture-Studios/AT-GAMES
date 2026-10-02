@@ -9,6 +9,8 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if (event is InputEventKey and event.pressed) or (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
+		if menu_anim.is_playing():
+			return
 		title_anim.play("move")
 		menu_anim.play("move")
 		any_key_anim.play("move")

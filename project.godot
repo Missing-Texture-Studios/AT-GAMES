@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="AT-GAMES"
-run/main_scene="uid://c1c3tcay85c1d"
+run/main_scene="uid://ixa5itjxd2r"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 ItemListGlobal="*uid://cvx6lkucfo57q"
+Loading="*res://scripts/UI/loading.gd"
 
 [display]
 

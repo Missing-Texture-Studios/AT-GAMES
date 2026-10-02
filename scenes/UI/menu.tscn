@@ -323,7 +323,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_uviw4"]
 resource_name = "move"
-length = 2.0
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -331,7 +331,7 @@ tracks/0/path = NodePath("NewGame:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1, 1.2),
+"times": PackedFloat32Array(0.5, 0.70000005),
 "transitions": PackedFloat32Array(0.20306315, 1),
 "update": 0,
 "values": [Vector2(-231, 262), Vector2(33, 262)]
@@ -343,7 +343,7 @@ tracks/1/path = NodePath("Continue:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1, 1.4333333),
+"times": PackedFloat32Array(0.5, 0.9333333),
 "transitions": PackedFloat32Array(0.20306315, 1),
 "update": 0,
 "values": [Vector2(-231, 324), Vector2(33, 324)]
@@ -355,7 +355,7 @@ tracks/2/path = NodePath("Options:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1, 1.6666666),
+"times": PackedFloat32Array(0.5, 1.1666666),
 "transitions": PackedFloat32Array(0.20306315, 1),
 "update": 0,
 "values": [Vector2(-231, 386), Vector2(33, 386)]
@@ -367,7 +367,7 @@ tracks/3/path = NodePath("Quit:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(1, 2),
+"times": PackedFloat32Array(0.5, 1.5),
 "transitions": PackedFloat32Array(0.20306315, 1),
 "update": 0,
 "values": [Vector2(-231, 448), Vector2(33, 448)]
@@ -399,7 +399,7 @@ _data = {
 [sub_resource type="Gradient" id="Gradient_q8qjh"]
 colors = PackedColorArray(0.019607844, 0, 0.05490196, 1, 0.43476868, 1.0757223e-05, 0.31905848, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_k6wl1"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ofy2k"]
 gradient = SubResource("Gradient_q8qjh")
 
 [sub_resource type="Gradient" id="Gradient_xccj5"]
@@ -407,7 +407,7 @@ gradient = SubResource("Gradient_q8qjh")
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_a2rsi"]
 frequency = 0.02
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_84tt2"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ypw4e"]
 noise = SubResource("FastNoiseLite_a2rsi")
 color_ramp = SubResource("Gradient_xccj5")
 
@@ -417,11 +417,11 @@ shader_parameter/position = Vector2(0.5, 0.5)
 shader_parameter/radius = 1.045
 shader_parameter/borderWidth = 0.2
 shader_parameter/burnMult = 0.34
-shader_parameter/noiseTexture = SubResource("NoiseTexture2D_84tt2")
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_ypw4e")
 shader_parameter/burnColor = Color(0, 0, 0, 1)
 shader_parameter/pixel_size = 0.006
 shader_parameter/blend_steps = 100.0
-shader_parameter/colorCurve = SubResource("GradientTexture2D_k6wl1")
+shader_parameter/colorCurve = SubResource("GradientTexture2D_ofy2k")
 
 [node name="Menu" type="Node2D" unique_id=784054979]
 script = ExtResource("1_svcqa")
@@ -667,5 +667,6 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
+[connection signal="button_up" from="CanvasLayer/Control/NewGame" to="." method="_on_new_game_button_up"]
 [connection signal="button_up" from="CanvasLayer/Control/Options" to="." method="_on_options_button_up"]
 [connection signal="button_up" from="CanvasLayer/Control/Quit" to="." method="_on_quit_button_up"]
