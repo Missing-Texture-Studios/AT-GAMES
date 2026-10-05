@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://4q0i2b26ftkj"]
+
+[ext_resource type="Script" uid="uid://bj4fqc55wl7c6" path="res://scripts/objects/door.gd" id="1_door"]
+[ext_resource type="Texture2D" uid="uid://bdopb8fn7c2gv" path="res://sprites/tiles/dbdoor1.png" id="2_closed"]
+[ext_resource type="Texture2D" uid="uid://bvv2w1bi0jyct" path="res://sprites/tiles/dbdoor2.png" id="3_open"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_double_door"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_closed")
+}],
+"loop": 0,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_open")
+}],
+"loop": 0,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blocking"]
+size = Vector2(128, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_interaction"]
+size = Vector2(136, 58)
+
+[node name="Horizontal Double Door" type="StaticBody2D" unique_id=984307810]
+script = ExtResource("1_door")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2035554429]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_double_door")
+animation = &"closed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1431175645]
+position = Vector2(0, 30.5)
+shape = SubResource("RectangleShape2D_blocking")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1797370685]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1985248877]
+position = Vector2(0, 22)
+shape = SubResource("RectangleShape2D_interaction")

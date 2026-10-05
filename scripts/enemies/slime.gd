@@ -1,6 +1,27 @@
 extends CharacterBody2D
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var growl_audio: AudioStreamPlayer2D = $GrowlAudio
+@onready var bite_audio: AudioStreamPlayer2D = $BiteAudio
+@onready var screech_audio: AudioStreamPlayer2D = $ScreechAudio
+@onready var idle_growl_timer: Timer = $IdleGrowlTimer
+
+const GROWL_SOUNDS = [
+	preload("res://sounds/slime/growl.wav"),
+	preload("res://sounds/slime/growl2.wav"),
+	preload("res://sounds/slime/growl3.wav"),
+	preload("res://sounds/slime/growl4.wav")
+]
+const BITE_SOUNDS = [
+	preload("res://sounds/slime/bite.wav"),
+	preload("res://sounds/slime/bite2.wav"),
+	preload("res://sounds/slime/bite3.wav")
+]
+const SCREECH_SOUNDS = [
+	preload("res://sounds/slime/screech.wav"),
+	preload("res://sounds/slime/screech2.wav"),
+	preload("res://sounds/slime/screech3.wav")
+]
 
 @export var speed = 30.0
 @export var range = 150.0
@@ -80,9 +101,16 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func _handle_state_change() -> void:
+	if state == STATES.IDLE:
+		if idle_growl_timer.is_stopped():
+			idle_growl_timer.start(randf_range(4.0, 9.0))
+	else:
+		idle_growl_timer.stop()
+
 	if state == STATES.STUNNED:
 		_stop_chomp = true
 		velocity = Vector2.ZERO
+		_play_random_sound(screech_audio, SCREECH_SOUNDS)
 		if animated_sprite.animation != "ded" or animated_sprite.frame != animated_sprite.sprite_frames.get_frame_count("ded") - 1:
 			animated_sprite.play("ded")
 		return
@@ -92,6 +120,7 @@ func _handle_state_change() -> void:
 		return
 
 	if state == STATES.ATTACKING and animated_sprite.animation != "chomp":
+		_play_random_sound(bite_audio, BITE_SOUNDS)
 		animated_sprite.play("chomp")
 	elif state != STATES.ATTACKING and animated_sprite.animation == "chomp":
 		animated_sprite.play("wiggle")
@@ -135,6 +164,7 @@ func _on_animated_sprite_animation_finished() -> void:
 		if state != STATES.ATTACKING:
 			return
 		if player_inside_hitbox:
+			_play_random_sound(bite_audio, BITE_SOUNDS)
 			animated_sprite.play("chomp")
 			return
 		if _attack_missed:
@@ -163,3 +193,13 @@ func stunned(stun: bool):
 			if state == STATES.ATTACKING:
 				state = STATES.ROAMING
 			animated_sprite.play("wiggle")
+
+func _play_random_sound(audio_player: AudioStreamPlayer2D, sounds: Array) -> void:
+	audio_player.stream = sounds.pick_random()
+	audio_player.play()
+
+func _on_idle_growl_timer_timeout() -> void:
+	if state != STATES.IDLE:
+		return
+	_play_random_sound(growl_audio, GROWL_SOUNDS)
+	idle_growl_timer.start(randf_range(4.0, 9.0))

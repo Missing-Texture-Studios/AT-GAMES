@@ -12,6 +12,7 @@ extends CharacterBody2D
 @onready var light_collision: CollisionPolygon2D = $Flashlight/LightArea/CollisionPolygon2D
 @onready var flashlight: PointLight2D = $Flashlight
 @onready var damage_animation: AnimationPlayer = $DamageAnimationPlayer
+@onready var hurt_audio: AudioStreamPlayer2D = $HurtAudio
 @onready var stam_bar: ProgressBar = $Camera2D/CanvasLayer/UI/StamBar
 @export var inventory: Array[InvItem]
 @onready var fade_anim: AnimationPlayer = $Camera2D/CanvasLayer/UI/Fade/fadeAnim
@@ -43,6 +44,12 @@ func addItem(ItemID: int, Amount: int):
 		inventory.append(new_item)
 
 var health = 100.0
+const HURT_SOUNDS = [
+	preload("res://sounds/player/ouch.wav"),
+	preload("res://sounds/player/ouch2.wav"),
+	preload("res://sounds/player/ouch3.wav"),
+	preload("res://sounds/player/ouch4.wav")
+]
 
 # Stamina / sprinting
 const STAMINA_MAX := 100.0
@@ -59,6 +66,8 @@ const STAM_RECOVER_THRESHOLD := 25.0 # stamina needed to leave exhausted state
 func take_damage(amount: float) -> void:
 	health = max(0.0, health - amount)
 	damage_animation.play("damage")
+	hurt_audio.stream = HURT_SOUNDS.pick_random()
+	hurt_audio.play()
 
 # Velocidade de movimento do jogador.
 const SPEED := 50.0

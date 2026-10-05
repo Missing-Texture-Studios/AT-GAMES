@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://dovgp0ch0lijn" path="res://sprites/enemies/slime/ded.png" id="3_nh0x5"]
 [ext_resource type="Texture2D" uid="uid://djl33d5jupdbt" path="res://sprites/enemies/slime/wiggle.png" id="4_tpkli"]
 [ext_resource type="Texture2D" uid="uid://cdnv8u4vngoug" path="res://sprites/FX/lightCookie.png" id="5_jskh2"]
+[ext_resource type="AudioStream" uid="uid://dn251kgvtt5co" path="res://sounds/slime/growl.wav" id="6_growl"]
+[ext_resource type="AudioStream" uid="uid://fbspoq18xugj" path="res://sounds/slime/bite.wav" id="7_bite"]
+[ext_resource type="AudioStream" uid="uid://cbdqfkk7hlywb" path="res://sounds/slime/screech.wav" id="8_screech"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xmfsd"]
 atlas = ExtResource("2_jskh2")
@@ -217,6 +220,22 @@ texture_scale = 0.5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2125688408]
 shape = SubResource("CircleShape2D_e0ryh")
 
+[node name="GrowlAudio" type="AudioStreamPlayer2D" parent="." unique_id=1460166362]
+stream = ExtResource("6_growl")
+bus = &"SFX"
+
+[node name="BiteAudio" type="AudioStreamPlayer2D" parent="." unique_id=1320650764]
+stream = ExtResource("7_bite")
+bus = &"SFX"
+
+[node name="ScreechAudio" type="AudioStreamPlayer2D" parent="." unique_id=1669372805]
+stream = ExtResource("8_screech")
+bus = &"SFX"
+
+[node name="IdleGrowlTimer" type="Timer" parent="." unique_id=21183841]
+one_shot = true
+
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_frame_changed"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="Hitbox" to="." method="_on_hitbox_body_exited"]
+[connection signal="timeout" from="IdleGrowlTimer" to="." method="_on_idle_growl_timer_timeout"]

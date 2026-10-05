@@ -4,6 +4,8 @@
 class_name DialogLine
 extends Resource
 
+enum Presentation { PLAIN, ACTION, QUOTE, THOUGHT }
+
 
 @export_category("Dialog")
 
@@ -16,12 +18,20 @@ extends Resource
 @export var dialog_name: String = ""
 
 # Retrato do personagem que será exibido na caixa de dialog.
+# null (padrão) = retrato do jogador. Para esconder o retrato,
+# use hide_portrait = true em vez de deixar null.
 @export var dialog_portrait: Texture2D
+
+# Quando true, esconde o retrato e/ou o nome.
+# Se ambos estiverem escondidos, o texto é centralizado.
+@export var hide_portrait: bool = false
+@export var hide_name: bool = false
 
 # Texto da fala.
 # @export_multiline permite escrever textos maiores
 # diretamente no Inspector.
 @export_multiline var dialog_text: String = ""
+@export var presentation: Presentation = Presentation.PLAIN
 
 # Índice da próxima linha quando o dialog avança normalmente.
 # -1 significa que não existe próxima linha e o dialog será fechado.
@@ -38,3 +48,5 @@ extends Resource
 
 # Segunda opção de resposta.
 @export var response_2: DialogResponse
+
+@export var responses: Array[DialogResponse] = []

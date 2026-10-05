@@ -3,6 +3,7 @@
 [ext_resource type="Shader" uid="uid://3vvobps82mu6" path="res://scripts/UI/fractal-warp.gdshader" id="1_iysyy"]
 [ext_resource type="Script" uid="uid://bwf0u1ywt4xr5" path="res://scripts/UI/menu.gd" id="1_svcqa"]
 [ext_resource type="Shader" uid="uid://m76q0f4ww1mp" path="res://scripts/UI/bloom.gdshader" id="2_ny0ke"]
+[ext_resource type="Shader" uid="uid://dsps14wa0va04" path="res://scripts/UI/wiggle.gdshader" id="3_3b8ea"]
 [ext_resource type="Texture2D" uid="uid://b8gw2xqkc1nn3" path="res://sprites/UI/title.png" id="3_78n2u"]
 [ext_resource type="Texture2D" uid="uid://bhbjc34yxpsp6" path="res://sprites/player/portrait.png" id="3_aklih"]
 [ext_resource type="FontFile" uid="uid://db5282d4yqiam" path="res://fonts/TINY5-REGULAR.TTF" id="4_svcqa"]
@@ -11,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://qq5pggh0qh8o" path="res://sprites/UI/UIBox2-9slice.png" id="6_svcqa"]
 [ext_resource type="Shader" uid="uid://cntw0a4n6v6gy" path="res://scripts/UI/burn.gdshader" id="8_ofy2k"]
 [ext_resource type="Shader" uid="uid://dnofi80vnucdx" path="res://scripts/UI/blur.gdshader" id="9_wav1i"]
+[ext_resource type="AudioStream" uid="uid://683aslnxsuyn" path="res://sounds/music/Eerie.mp3" id="13_2ruad"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r4msk"]
 shader = ExtResource("1_iysyy")
@@ -24,6 +26,11 @@ shader_parameter/color_mid_threshold = 0.48
 shader_parameter/color_low = Color(0.072469704, 0.025651976, 0.15967414, 1)
 shader_parameter/color_mid = Color(0.34058186, 0.25996923, 0.3171173, 1)
 shader_parameter/color_high = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wav1i"]
+shader = ExtResource("3_3b8ea")
+shader_parameter/strength = 0.6
+shader_parameter/speed = 8.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3b8ea"]
 atlas = ExtResource("3_aklih")
@@ -543,7 +550,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Portrait" type="AnimatedSprite2D" parent="CanvasLayer/Control" unique_id=1428954903 node_paths=PackedStringArray("blink_timer")]
+modulate = Color(0.7848862, 0.5550671, 0.90203315, 1)
 texture_filter = 1
+material = SubResource("ShaderMaterial_wav1i")
 position = Vector2(1408, 918)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_r4msk")
@@ -649,6 +658,22 @@ text = "Áudio"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Video" type="Label" parent="CanvasLayer/Control/OptionsPanel" unique_id=1430948763]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.5
+offset_top = 315.0
+offset_right = 75.5
+offset_bottom = 369.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_svcqa")
+theme_override_font_sizes/font_size = 48
+text = "Vídeo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MusSlider" type="HSlider" parent="CanvasLayer/Control/OptionsPanel" unique_id=1203054199]
 layout_mode = 1
 anchors_preset = 5
@@ -703,6 +728,80 @@ text = "Efeitos Sonoros"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="VSyncCheckBox" type="CheckBox" parent="CanvasLayer/Control/OptionsPanel" unique_id=1471963239]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = 146.5
+offset_right = 12.0
+offset_bottom = 170.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="VSyncLabel" type="Label" parent="CanvasLayer/Control/OptionsPanel" unique_id=1865767957]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -97.0
+offset_top = 102.5
+offset_right = 97.0
+offset_bottom = 132.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("4_svcqa")
+theme_override_font_sizes/font_size = 26
+text = "VSync"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="CanvasLayer/Control/OptionsPanel" unique_id=175066689]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = 228.5
+offset_right = 12.0
+offset_bottom = 252.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="FullscreenLabel" type="Label" parent="CanvasLayer/Control/OptionsPanel" unique_id=1029364385]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = 182.5
+offset_right = 117.0
+offset_bottom = 212.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("4_svcqa")
+theme_override_font_sizes/font_size = 26
+text = "Fullscreen"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="NewGame" type="Button" parent="CanvasLayer/Control" unique_id=556663315]
 texture_filter = 1
 layout_mode = 0
@@ -725,6 +824,7 @@ offset_right = -22.0
 offset_bottom = 386.0
 theme_override_fonts/font = ExtResource("4_svcqa")
 theme_override_font_sizes/font_size = 48
+disabled = true
 text = "Continuar"
 flat = true
 alignment = 0
@@ -768,6 +868,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1216453292]
+stream = ExtResource("13_2ruad")
+autoplay = true
+bus = &"Mus"
 
 [connection signal="timeout" from="CanvasLayer/Control/Portrait/BlinkTimer" to="CanvasLayer/Control/Portrait" method="_on_blink_timer_timeout"]
 [connection signal="button_up" from="CanvasLayer/Control/NewGame" to="." method="_on_new_game_button_up"]

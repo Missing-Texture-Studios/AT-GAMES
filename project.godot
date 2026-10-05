@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 ItemListGlobal="*uid://cvx6lkucfo57q"
 Loading="*res://scripts/UI/loading.gd"
+UISounds="*res://scripts/UI/button_sounds.gd"
+Settings="*res://scripts/settings.gd"
+WorldDepth="*res://scripts/world/world_depth_sorter.gd"
+Level1Puzzle="*res://scripts/objects/level1_puzzle.gd"
 
 [display]
 
@@ -117,3 +121,4 @@ light_right={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.17860839, 0.09387987, 0.17813665, 1)

@@ -113,4 +113,5 @@ material = SubResource("ShaderMaterial_8wi8e")
 position = Vector2(1058, 556)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_r4msk")
+autoplay = "default"
 frame_progress = 0.9126209
