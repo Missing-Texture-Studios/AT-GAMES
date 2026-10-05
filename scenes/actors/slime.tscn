@@ -222,14 +222,20 @@ shape = SubResource("CircleShape2D_e0ryh")
 
 [node name="GrowlAudio" type="AudioStreamPlayer2D" parent="." unique_id=1460166362]
 stream = ExtResource("6_growl")
+max_distance = 500.0
+panning_strength = 3.0
 bus = &"SFX"
 
 [node name="BiteAudio" type="AudioStreamPlayer2D" parent="." unique_id=1320650764]
 stream = ExtResource("7_bite")
+max_distance = 500.0
+panning_strength = 3.0
 bus = &"SFX"
 
 [node name="ScreechAudio" type="AudioStreamPlayer2D" parent="." unique_id=1669372805]
 stream = ExtResource("8_screech")
+max_distance = 500.0
+panning_strength = 3.0
 bus = &"SFX"
 
 [node name="IdleGrowlTimer" type="Timer" parent="." unique_id=21183841]
