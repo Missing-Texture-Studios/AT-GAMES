@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cmeonpgriiuqj" path="res://scenes/objects/door_horizontal.tscn" id="7_hcfpd"]
 [ext_resource type="Texture2D" uid="uid://d1l0e1dwxepr5" path="res://sprites/tiles/barred_door.png" id="8_gwnlw"]
 [ext_resource type="PackedScene" path="res://scenes/objects/level1_entity.tscn" id="8_level1_entity"]
+[ext_resource type="Texture2D" uid="uid://cdnv8u4vngoug" path="res://sprites/FX/lightCookie.png" id="11_g8big"]
 [ext_resource type="PackedScene" uid="uid://d20e1uf86vm13" path="res://scenes/actors/slime.tscn" id="14_oin7f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gwnlw"]
@@ -178,18 +179,6 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_mj404")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3psv"]
-size = Vector2(64, 64)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mj404"]
-size = Vector2(82, 71)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aej8o"]
-size = Vector2(8, 91)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqnp4"]
-size = Vector2(17, 97)
-
 [sub_resource type="Resource" id="Resource_le5iv"]
 script = ExtResource("5_uqnp4")
 dialog_name = "Você"
@@ -251,6 +240,18 @@ dialog_text = "Não perca a sanidade, as sombras as vezes enganam..."
 presentation = 2
 metadata/_custom_type_script = "uid://ci8q6enq6io4g"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3psv"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mj404"]
+size = Vector2(82, 71)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aej8o"]
+size = Vector2(8, 91)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqnp4"]
+size = Vector2(17, 97)
+
 [node name="Level1" type="Node2D" unique_id=1148343387]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=390419264]
@@ -289,8 +290,13 @@ tile_set = SubResource("TileSet_lgpay")
 [node name="Deco" type="TileMapLayer" parent="." unique_id=859168927]
 light_mask = 3
 texture_filter = 1
-tile_map_data = PackedByteArray("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")
+tile_map_data = PackedByteArray("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")
 tile_set = SubResource("TileSet_oin7f")
+
+[node name="Player" parent="." unique_id=1223342948 instance=ExtResource("2_vmn4k")]
+position = Vector2(-91, 103)
+start_dialog_enabled = true
+start_dialog = Array[ExtResource("5_uqnp4")]([SubResource("Resource_le5iv"), SubResource("Resource_qftki"), SubResource("Resource_utcx7"), SubResource("Resource_cb0m2"), SubResource("Resource_u1jkk"), SubResource("Resource_qugoe")])
 
 [node name="UtilDoor" parent="." unique_id=1476390423 instance=ExtResource("3_vmn4k")]
 position = Vector2(526, -493)
@@ -305,19 +311,43 @@ locked = false
 [node name="Diary" parent="." unique_id=2050966938 instance=ExtResource("8_level1_entity")]
 position = Vector2(-374, 192)
 
+[node name="PointLight2D" type="PointLight2D" parent="Diary" unique_id=313720380]
+color = Color(1, 0.34117648, 1, 1)
+energy = 0.35
+texture = ExtResource("11_g8big")
+texture_scale = 0.9
+
 [node name="Book1" parent="." unique_id=672517806 instance=ExtResource("8_level1_entity")]
 position = Vector2(-378, -378)
 kind = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="Book1" unique_id=1592456481]
+color = Color(1, 0.34117648, 1, 1)
+energy = 0.35
+texture = ExtResource("11_g8big")
+texture_scale = 0.9
 
 [node name="Book2" parent="." unique_id=1751976693 instance=ExtResource("8_level1_entity")]
 position = Vector2(-378, -128)
 kind = 1
 book_number = 2
 
+[node name="PointLight2D" type="PointLight2D" parent="Book2" unique_id=1107934607]
+color = Color(1, 0.34117648, 1, 1)
+energy = 0.35
+texture = ExtResource("11_g8big")
+texture_scale = 0.9
+
 [node name="Book3" parent="." unique_id=83099979 instance=ExtResource("8_level1_entity")]
 position = Vector2(178, 405)
 kind = 1
 book_number = 3
+
+[node name="PointLight2D" type="PointLight2D" parent="Book3" unique_id=1068272721]
+color = Color(1, 0.34117648, 1, 1)
+energy = 0.35
+texture = ExtResource("11_g8big")
+texture_scale = 0.9
 
 [node name="Bookshelf" parent="." unique_id=619397217 instance=ExtResource("8_level1_entity")]
 position = Vector2(573, -297)
@@ -334,9 +364,21 @@ disabled = false
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_mj404")
 
+[node name="PointLight2D" type="PointLight2D" parent="Bookshelf" unique_id=701618363]
+color = Color(1, 0.34117648, 1, 1)
+energy = 0.35
+texture = ExtResource("11_g8big")
+texture_scale = 0.9
+
 [node name="Crowbar" parent="." unique_id=673033841 groups=["level1_crowbar"] instance=ExtResource("8_level1_entity")]
 position = Vector2(577, -447)
 kind = 3
+
+[node name="PointLight2D" type="PointLight2D" parent="Crowbar" unique_id=1261296152]
+color = Color(1, 0.34117648, 1, 1)
+energy = 0.35
+texture = ExtResource("11_g8big")
+texture_scale = 0.9
 
 [node name="BarredDoor" parent="." unique_id=1493683812 instance=ExtResource("8_level1_entity")]
 position = Vector2(638, -99)
@@ -353,6 +395,12 @@ shape = SubResource("RectangleShape2D_aej8o")
 [node name="CollisionShape2D" parent="BarredDoor/Area2D" index="0"]
 position = Vector2(-6.5, -0.5)
 shape = SubResource("RectangleShape2D_uqnp4")
+
+[node name="PointLight2D" type="PointLight2D" parent="BarredDoor" unique_id=1744789109]
+color = Color(1, 0.34117648, 1, 1)
+energy = 0.35
+texture = ExtResource("11_g8big")
+texture_scale = 0.9
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1769832100]
 color = Color(0.07464624, 0.033697158, 0.04959926, 1)
@@ -421,11 +469,6 @@ damage = 5.0
 position = Vector2(440, -481)
 range = 100.0
 damage = 5.0
-
-[node name="Player" parent="." unique_id=1223342948 instance=ExtResource("2_vmn4k")]
-position = Vector2(-97, 97)
-inventory = Array[ExtResource("5_uqnp4")]([SubResource("Resource_le5iv"), SubResource("Resource_qftki"), SubResource("Resource_utcx7"), SubResource("Resource_cb0m2"), SubResource("Resource_u1jkk"), SubResource("Resource_qugoe")])
-start_dialog_enabled = true
 
 [editable path="Bookshelf"]
 [editable path="BarredDoor"]
