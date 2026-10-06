@@ -13,6 +13,10 @@
 [ext_resource type="Script" uid="uid://biwgvfll1f101" path="res://scripts/player/flashlight.gd" id="9_0w4p8"]
 [ext_resource type="Shader" uid="uid://cntw0a4n6v6gy" path="res://scripts/UI/burn.gdshader" id="9_c4rn8"]
 [ext_resource type="AudioStream" uid="uid://0i5vgtycp36y" path="res://sounds/player/ouch.wav" id="10_hurt"]
+[ext_resource type="AudioStream" uid="uid://dryy7cap7vn2t" path="res://sounds/player/step.wav" id="11_step"]
+[ext_resource type="AudioStream" uid="uid://c1q3jehsuw8jh" path="res://sounds/player/flashlightClick.wav" id="15_0878f"]
+[ext_resource type="AudioStream" uid="uid://cc1kxj7wq0u6l" path="res://sounds/player/sprint.wav" id="16_dferu"]
+[ext_resource type="AudioStream" uid="uid://dq4fab1hm8nug" path="res://sounds/player/lightHum.wav" id="17_dferu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fpu37"]
 
@@ -758,6 +762,22 @@ libraries/ = SubResource("AnimationLibrary_damage")
 
 [node name="HurtAudio" type="AudioStreamPlayer2D" parent="." unique_id=1410722594]
 stream = ExtResource("10_hurt")
+bus = &"SFX"
+
+[node name="StepAudio" type="AudioStreamPlayer2D" parent="." unique_id=1410722595]
+stream = ExtResource("11_step")
+bus = &"SFX"
+
+[node name="LightClick" type="AudioStreamPlayer2D" parent="." unique_id=285088668]
+stream = ExtResource("15_0878f")
+bus = &"SFX"
+
+[node name="Oomph" type="AudioStreamPlayer2D" parent="." unique_id=2015554784]
+stream = ExtResource("16_dferu")
+bus = &"SFX"
+
+[node name="LightHum" type="AudioStreamPlayer2D" parent="." unique_id=1850179702]
+stream = ExtResource("17_dferu")
 bus = &"SFX"
 
 [connection signal="body_entered" from="Flashlight/LightArea" to="Flashlight/LightArea" method="_on_body_entered"]

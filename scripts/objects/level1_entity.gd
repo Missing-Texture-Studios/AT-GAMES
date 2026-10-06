@@ -15,14 +15,14 @@ enum Kind {
 @onready var entity_sprite: Sprite2D = $Sprite2D
 @onready var blocking_shape: CollisionShape2D = $CollisionShape2D
 
-const ENTITY_TEXTURES: Array[Texture2D] = [
+var ENTITY_TEXTURES: Array[Texture2D] = [
 	preload("res://sprites/objects/diary.png"),
 	preload("res://sprites/objects/book.png"),
-	preload("res://sprites/objects/placeholderEntity.png"),
+	preload("res://sprites/tiles/bookshelf1.png"),
 	preload("res://sprites/objects/crowbar.png"),
-	preload("res://sprites/objects/placeholderEntity.png")
+	preload("res://sprites/tiles/barred_door.png")
 ]
-
+var BOOKSHELF_SOLVED_TEXTURE := preload("res://sprites/tiles/bookshelf2.png")
 
 func _ready() -> void:
 	super._ready()
@@ -89,21 +89,18 @@ func _pick_up_book() -> void:
 	var book_title := _book_title(book_number)
 	player.addItem(item_id, 1)
 	set_available(false)
-	await _show_dialog("Você guarda \"%s\" na mochila." % book_title, DialogLine.Presentation.ACTION)
+	await _show_dialog("Você pega \"%s\"." % book_title, DialogLine.Presentation.ACTION)
 
 
 func _show_book_choice() -> void:
 	# Sem nenhum livro no inventário: filler, sem opções.
 	if not _has_any_book():
-		var empty_line := DialogLine.new()
-		empty_line.dialog_text = "Oh, parece que faltam alguns livros aqui..."
-		empty_line.presentation = DialogLine.Presentation.THOUGHT
-		empty_line.hide_portrait = true
-		empty_line.hide_name = true
-		var empty_lines: Array[DialogLine] = [empty_line]
-		player.dialog_box.open(empty_lines, self)
-		await player.dialog_box.dialog_closed
+		await _show_dialog(
+			"Oh, parece que faltam alguns livros aqui...",
+			DialogLine.Presentation.THOUGHT
+		)
 		return
+
 	_book_opening_line = DialogLine.new()
 	_book_opening_line.index = 0
 	_book_opening_line.dialog_text = Level1Puzzle.bookshelf_hint()
@@ -111,16 +108,20 @@ func _show_book_choice() -> void:
 	_book_opening_line.has_responses = true
 	_book_opening_line.next_index = -1
 	_refresh_book_options()
+
 	_book_result_line = DialogLine.new()
 	_book_result_line.index = 5
 	_book_result_line.dialog_text = ""
 	# Após mostrar o resultado, volta para a escolha (sem fechar o dialog).
 	_book_result_line.next_index = 0
+
 	var lines: Array[DialogLine] = [_book_opening_line, _book_result_line]
 	player.dialog_box.open(lines, self)
 	await player.dialog_box.dialog_closed
+
 	_book_opening_line = null
 	_book_result_line = null
+
 
 
 func _has_any_book() -> bool:
@@ -176,16 +177,20 @@ func _book_choice_response(book_number_to_place: int, choice_text: String) -> Di
 func select_book_for_shelf(book_number_to_place: int) -> void:
 	if _book_result_line == null:
 		return
+
 	var result := Level1Puzzle.choose_book(player, book_number_to_place)
 	_book_result_line.dialog_text = result.message
 	_book_result_line.presentation = (
 		DialogLine.Presentation.ACTION if result.correct else DialogLine.Presentation.THOUGHT
 	)
+
 	# O livro usado já foi removido do inventário pelo choose_book.
-	# Se o puzzle foi resolvido, o dialog fecha ao avançar do resultado.
+	# Se o puzzle foi resolvido, troca a aparência da estante.
 	if Level1Puzzle.puzzle_solved:
+		entity_sprite.texture = BOOKSHELF_SOLVED_TEXTURE
 		_book_result_line.next_index = -1
 		return
+
 	# Senão, atualiza as opções (sem o livro usado) para o próximo loop.
 	_refresh_book_options()
 

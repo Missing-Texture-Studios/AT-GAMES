@@ -13,6 +13,7 @@
 [ext_resource type="Shader" uid="uid://cntw0a4n6v6gy" path="res://scripts/UI/burn.gdshader" id="8_ofy2k"]
 [ext_resource type="Shader" uid="uid://dnofi80vnucdx" path="res://scripts/UI/blur.gdshader" id="9_wav1i"]
 [ext_resource type="AudioStream" uid="uid://683aslnxsuyn" path="res://sounds/music/Eerie.mp3" id="13_2ruad"]
+[ext_resource type="AudioStream" uid="uid://sxc8n66iy4by" path="res://sounds/UI/whoosh.wav" id="14_whoosh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r4msk"]
 shader = ExtResource("1_iysyy")
@@ -379,6 +380,7 @@ tracks/7/keys = {
 
 [sub_resource type="Animation" id="Animation_45usf"]
 resource_name = "fade"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -403,6 +405,21 @@ tracks/1/keys = {
 "update": 1,
 "values": [2, 0, 0]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MenuAnim/Whoosh")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("14_whoosh")
+}],
+"times": PackedFloat32Array(0.03333334)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_uviw4"]
 resource_name = "move"
@@ -857,6 +874,8 @@ alignment = 0
 
 [node name="MenuAnim" type="AnimationPlayer" parent="CanvasLayer/Control" unique_id=328482057]
 libraries/ = SubResource("AnimationLibrary_45usf")
+
+[node name="Whoosh" type="AudioStreamPlayer" parent="CanvasLayer/Control/MenuAnim" unique_id=1575065032]
 
 [node name="ColorRect3" type="ColorRect" parent="CanvasLayer/Control" unique_id=924136735]
 material = SubResource("ShaderMaterial_xx4du")

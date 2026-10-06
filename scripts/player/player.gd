@@ -13,9 +13,13 @@ extends CharacterBody2D
 @onready var flashlight: PointLight2D = $Flashlight
 @onready var damage_animation: AnimationPlayer = $DamageAnimationPlayer
 @onready var hurt_audio: AudioStreamPlayer2D = $HurtAudio
+@onready var step_audio: AudioStreamPlayer2D = $StepAudio
 @onready var stam_bar: ProgressBar = $Camera2D/CanvasLayer/UI/StamBar
 @export var inventory: Array[InvItem]
 @onready var fade_anim: AnimationPlayer = $Camera2D/CanvasLayer/UI/Fade/fadeAnim
+@onready var light_click: AudioStreamPlayer2D = $LightClick
+@onready var oomph: AudioStreamPlayer2D = $Oomph
+@onready var light_hum: AudioStreamPlayer2D = $LightHum
 
 var flashlight_battery = 100.0
 
@@ -58,7 +62,7 @@ var exhausted: bool = false
 
 const SPRINT_MULT := 1.8
 const EXHAUSTED_MULT := 0.45
-const STAM_DEPLETION_RATE := 25.0 # per second while sprinting
+const STAM_DEPLETION_RATE := 17.0 # per second while sprinting
 const STAM_RECHARGE_RATE := 14.0  # per second when not exhausted
 const STAM_SLOW_RECHARGE := 5.0  # per second when exhausted
 const STAM_RECOVER_THRESHOLD := 25.0 # stamina needed to leave exhausted state
@@ -68,6 +72,16 @@ func take_damage(amount: float) -> void:
 	damage_animation.play("damage")
 	hurt_audio.stream = HURT_SOUNDS.pick_random()
 	hurt_audio.play()
+
+
+func _on_player_frame_changed() -> void:
+	if input_dir_is_walking() and animated_sprite.frame in [0, 2]:
+		step_audio.pitch_scale = randf_range(1.0,1.5)
+		step_audio.play()
+
+
+func input_dir_is_walking() -> bool:
+	return can_move and velocity != Vector2.ZERO and animated_sprite.animation in ["up", "down", "left", "right"]
 
 # Velocidade de movimento do jogador.
 const SPEED := 50.0
@@ -86,6 +100,7 @@ func _ready() -> void:
 	# por bloquear e liberar o movimento do jogador.
 	dialog_box.dialog_opened.connect(_on_dialog_opened)
 	dialog_box.dialog_closed.connect(_on_dialog_closed)
+	animated_sprite.frame_changed.connect(_on_player_frame_changed)
 	fadeout()
 
 func _process(_delta: float) -> void:
@@ -97,7 +112,10 @@ func _process(_delta: float) -> void:
 	_clean_interaction_list()
 	if Input.is_action_just_pressed("addCoin"):
 		addItem(1,1)
-
+	
+	if Input.is_action_just_pressed("light_down") or Input.is_action_just_pressed("light_up") or Input.is_action_just_pressed("light_left") or Input.is_action_just_pressed("light_right") or Input.is_action_just_released("light_down") or Input.is_action_just_released("light_up") or Input.is_action_just_released("light_left") or Input.is_action_just_released("light_right"):
+		light_click.play()
+		
 	var light_dir := Input.get_vector(
 		"light_left",
 		"light_right",
@@ -107,11 +125,13 @@ func _process(_delta: float) -> void:
 	if light_dir != Vector2.ZERO and flashlight_battery > 0:
 		flashlight.visible = true
 		flashlight.enabled = true
+		if !light_hum.playing: light_hum.play()
 		light_collision.disabled = false
 		flashlight_battery -= 0.5
 	else:
 		flashlight.visible = false
 		flashlight.enabled = false
+		light_hum.stop()
 		light_collision.disabled = true
 		if flashlight_battery < 100.0: flashlight_battery += 0.1
 	light_bar.value = flashlight_battery
@@ -129,6 +149,7 @@ func _physics_process(_delta: float) -> void:
 	# sua velocidade é zerada.
 	if not can_move:
 		velocity = Vector2.ZERO
+		animated_sprite.speed_scale = 1.0
 		animated_sprite.play("idle")
 		return
 
@@ -159,6 +180,9 @@ func _physics_process(_delta: float) -> void:
 		else:
 			# Normal (not sprinting): recharge stamina at normal rate
 			stamina = min(STAMINA_MAX, stamina + STAM_RECHARGE_RATE * _delta)
+
+	# Speed up the walking animation while sprinting.
+	animated_sprite.speed_scale = SPRINT_MULT if is_sprinting else 1.0
 
 	# Aplica a velocidade na direção escolhida com multiplicador
 	velocity = input_dir * SPEED * speed_multiplier
