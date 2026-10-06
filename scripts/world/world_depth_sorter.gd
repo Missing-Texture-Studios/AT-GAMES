@@ -57,6 +57,11 @@ func _configure_node(node: Node) -> void:
 		node.z_index = FLOOR_Z_INDEX
 		node.z_as_relative = false
 		return
+	if node is TileMapLayer and node.name.to_lower() == "floordetails":
+		node.y_sort_enabled = false
+		node.z_index = FLOOR_Z_INDEX
+		node.z_as_relative = false
+		return
 
 	node.y_sort_enabled = true
 	if node == get_tree().current_scene:

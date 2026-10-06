@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dfbfnnwl2w318"]
+
+[ext_resource type="Script" uid="uid://jih2vv3pv3lu" path="res://scripts/objects/touch_interaction.gd" id="1_nbt62"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7wueq"]
+size = Vector2(16, 16)
+
+[node name="Touch Interaction" type="StaticBody2D" unique_id=181290687]
+script = ExtResource("1_nbt62")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=33977075]
+shape = SubResource("RectangleShape2D_7wueq")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1588132340]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1233359045]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

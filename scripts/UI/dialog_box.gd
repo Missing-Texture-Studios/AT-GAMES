@@ -201,40 +201,15 @@ func _apply_dialog_layout(line: DialogLine) -> void:
 
 		_layout_initialized = true
 
-	var no_portrait := line.hide_portrait
-	var no_name := line.hide_name or line.dialog_name.is_empty()
-
 	dialog_name.visible = not line.hide_name
 
-	# Retrato ocupa a esquerda; sem retrato o texto pode usar toda a largura.
-	var text_left := 22.0 if no_portrait else _default_text_rect.position.x
-
-	dialog_text.offset_left = text_left
+	dialog_text.offset_left = _default_text_rect.position.x
 	dialog_text.offset_top = _default_text_rect.position.y
 	dialog_text.offset_right = _default_text_rect.position.x + _default_text_rect.size.x
 	dialog_text.offset_bottom = _default_text_rect.position.y + _default_text_rect.size.y
 
-	dialog_text.horizontal_alignment = (
-		HORIZONTAL_ALIGNMENT_CENTER
-		if (no_portrait and no_name)
-		else HORIZONTAL_ALIGNMENT_LEFT
-	)
-
-	dialog_text.vertical_alignment = (
-		VERTICAL_ALIGNMENT_CENTER
-		if (no_portrait and no_name)
-		else VERTICAL_ALIGNMENT_TOP
-	)
-
-	options_scroll.offset_left = text_left if no_portrait else _default_options_rect.position.x
-	options_scroll.offset_top = _default_options_rect.position.y
-	options_scroll.offset_right = (
-		_default_options_rect.position.x + _default_options_rect.size.x
-	)
-	options_scroll.offset_bottom = (
-		_default_options_rect.position.y + _default_options_rect.size.y
-	)
-
+	dialog_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	dialog_text.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 
 func _show_player_portrait() -> void:
 	portrait.visible = true

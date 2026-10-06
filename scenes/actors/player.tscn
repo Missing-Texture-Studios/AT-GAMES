@@ -595,7 +595,7 @@ autoplay = "idle"
 offset = Vector2(0, -42)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1675046289]
-zoom = Vector2(2, 2)
+zoom = Vector2(3.5, 3.5)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=957859843]
 

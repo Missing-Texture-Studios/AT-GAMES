@@ -21,13 +21,28 @@ extends CharacterBody2D
 @onready var oomph: AudioStreamPlayer2D = $Oomph
 @onready var light_hum: AudioStreamPlayer2D = $LightHum
 
+
+@export_category("Start Dialog")
+
+# Define se um dialog deve ser mostrado automaticamente
+# após o fade-in inicial da cena.
+@export var start_dialog_enabled: bool = false
+
+# Dialog mostrado automaticamente no início da cena.
+# Pode ser configurado diretamente no Inspector.
+@export var start_dialog: Array[DialogLine]
+
+
 var flashlight_battery = 100.0
+
 
 func fadein():
 	fade_anim.play("fade")
 	
+	
 func fadeout():
 	fade_anim.play_backwards("fade")
+
 
 func addItem(ItemID: int, Amount: int):
 	# 1. Search the inventory to see if an item with this ID already exists
@@ -47,13 +62,17 @@ func addItem(ItemID: int, Amount: int):
 		new_item.item_amount = Amount
 		inventory.append(new_item)
 
+
 var health = 100.0
+
+
 const HURT_SOUNDS = [
 	preload("res://sounds/player/ouch.wav"),
 	preload("res://sounds/player/ouch2.wav"),
 	preload("res://sounds/player/ouch3.wav"),
 	preload("res://sounds/player/ouch4.wav")
 ]
+
 
 # Stamina / sprinting
 const STAMINA_MAX := 100.0
@@ -66,6 +85,7 @@ const STAM_DEPLETION_RATE := 17.0 # per second while sprinting
 const STAM_RECHARGE_RATE := 14.0  # per second when not exhausted
 const STAM_SLOW_RECHARGE := 5.0  # per second when exhausted
 const STAM_RECOVER_THRESHOLD := 25.0 # stamina needed to leave exhausted state
+
 
 func take_damage(amount: float) -> void:
 	health = max(0.0, health - amount)
@@ -83,8 +103,10 @@ func _on_player_frame_changed() -> void:
 func input_dir_is_walking() -> bool:
 	return can_move and velocity != Vector2.ZERO and animated_sprite.animation in ["up", "down", "left", "right"]
 
+
 # Velocidade de movimento do jogador.
 const SPEED := 50.0
+
 
 # Define se o jogador pode se movimentar.
 # Fica falso enquanto um dialog estiver aberto.
@@ -101,15 +123,37 @@ func _ready() -> void:
 	dialog_box.dialog_opened.connect(_on_dialog_opened)
 	dialog_box.dialog_closed.connect(_on_dialog_closed)
 	animated_sprite.frame_changed.connect(_on_player_frame_changed)
+
+	# Inicia o fade-in da cena.
 	fadeout()
+
+	# Mostra o dialog inicial somente depois que o fade-in terminar.
+	if start_dialog_enabled and not start_dialog.is_empty():
+		await fade_anim.animation_finished
+		_show_start_dialog()
+
+
+func _show_start_dialog() -> void:
+	# Não faz nada caso o dialog já esteja aberto.
+	if dialog_box.dialog_enabled:
+		return
+
+	# Abre o dialog configurado no Inspector.
+	# "self" é enviado como a origem do dialog,
+	# assim como nas interações normais.
+	dialog_box.open(start_dialog, self)
+
 
 func _process(_delta: float) -> void:
 	hp_bar.value = health
+
 	# Update stamina UI
 	if is_instance_valid(stam_bar):
 		stam_bar.value = stamina
+
 	# Remove da lista qualquer objeto que não exista mais na cena.
 	_clean_interaction_list()
+
 	if Input.is_action_just_pressed("addCoin"):
 		addItem(1,1)
 	
@@ -122,6 +166,7 @@ func _process(_delta: float) -> void:
 		"light_up",
 		"light_down"
 	)
+
 	if light_dir != Vector2.ZERO and flashlight_battery > 0:
 		flashlight.visible = true
 		flashlight.enabled = true
@@ -134,7 +179,9 @@ func _process(_delta: float) -> void:
 		light_hum.stop()
 		light_collision.disabled = true
 		if flashlight_battery < 100.0: flashlight_battery += 0.1
+
 	light_bar.value = flashlight_battery
+
 	# Procura o objeto de interação mais próximo do jogador.
 	var interaction := _get_closest_interaction()
 
@@ -164,10 +211,12 @@ func _physics_process(_delta: float) -> void:
 	# Sprint / stamina logic
 	var speed_multiplier := 1.0
 	var is_sprinting := Input.is_action_pressed("sprint") and input_dir != Vector2.ZERO
+
 	if is_sprinting and not exhausted and stamina > 0.0:
 		# Sprinting: consume stamina and increase speed
 		speed_multiplier = SPRINT_MULT
 		stamina = max(0.0, stamina - STAM_DEPLETION_RATE * _delta)
+
 		if stamina <= 0.0:
 			exhausted = true
 	else:
@@ -175,6 +224,7 @@ func _physics_process(_delta: float) -> void:
 			# While exhausted, move slower and recharge slowly
 			speed_multiplier = EXHAUSTED_MULT
 			stamina = min(STAMINA_MAX, stamina + STAM_SLOW_RECHARGE * _delta)
+
 			if stamina >= STAM_RECOVER_THRESHOLD:
 				exhausted = false
 		else:
@@ -200,7 +250,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	# Não permite iniciar uma interação enquanto o jogador
-	# estiver impedido de se mover.
+	# estiver impedido de se movimentar.
 	if not can_move:
 		return
 
@@ -281,6 +331,7 @@ func update_animation(input_dir: Vector2) -> void:
 		"light_up",
 		"light_down"
 	)
+
 	var facing_dir := light_dir if light_dir != Vector2.ZERO else input_dir
 
 	# When the player is standing still and the flashlight is down, use idle.
@@ -294,6 +345,7 @@ func update_animation(input_dir: Vector2) -> void:
 	if input_dir == Vector2.ZERO:
 		if light_dir != Vector2.ZERO:
 			facing_dir = light_dir
+
 			if abs(facing_dir.x) > abs(facing_dir.y):
 				var anim_name := "right" if facing_dir.x > 0 else "left"
 				animated_sprite.play(anim_name)
@@ -301,12 +353,14 @@ func update_animation(input_dir: Vector2) -> void:
 				animated_sprite.stop()
 				flashlight_dir.play(anim_name)
 				return
+
 			if facing_dir.y < 0:
 				animated_sprite.play("up")
 				animated_sprite.frame = 1
 				animated_sprite.stop()
 				flashlight_dir.play("up")
 				return
+
 		if light_dir == Vector2.ZERO:
 			animated_sprite.play("idle")
 			flashlight_dir.play("down")
