@@ -17,6 +17,53 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w67w4"]
+shader = ExtResource("2_feath")
+shader_parameter/blur_lod = 2.50000011875
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sipkl"]
+texture = ExtResource("1_qo2fb")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="Animation" id="Animation_eir0s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1166, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_3pfkw"]
+resource_name = "slide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.16493852, 1),
+"update": 0,
+"values": [Vector2(1156, 13), Vector2(762, 13)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xovtl"]
+_data = {
+&"RESET": SubResource("Animation_eir0s"),
+&"slide": SubResource("Animation_3pfkw")
+}
+
 [sub_resource type="Gradient" id="Gradient_sipkl"]
 colors = PackedColorArray(0.019607844, 0, 0.05490196, 1, 0.43476868, 1.0757223e-05, 0.31905848, 1)
 
@@ -107,6 +154,199 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_e0ryh")
 
+[node name="OptionsPanel" type="Panel" parent="Panel" unique_id=1763226202]
+texture_filter = 1
+material = SubResource("ShaderMaterial_w67w4")
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 46.0
+offset_top = 32.0
+offset_right = 391.00024
+offset_bottom = 615.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_sipkl")
+
+[node name="Opts" type="Label" parent="Panel/OptionsPanel" unique_id=1868905846]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = 17.0
+offset_right = 75.0
+offset_bottom = 71.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 48
+text = "Opções"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Audio" type="Label" parent="Panel/OptionsPanel" unique_id=1016296043]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.5
+offset_top = 114.0
+offset_right = 75.5
+offset_bottom = 168.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 48
+text = "Áudio"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Video" type="Label" parent="Panel/OptionsPanel" unique_id=1798615998]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.5
+offset_top = 315.0
+offset_right = 75.5
+offset_bottom = 369.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 48
+text = "Vídeo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusSlider" type="HSlider" parent="Panel/OptionsPanel" unique_id=684761303]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -118.5
+offset_top = 216.0
+offset_right = 118.5
+offset_bottom = 232.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Panel/OptionsPanel/MusSlider" unique_id=637256885]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.5
+offset_top = -33.0
+offset_right = 66.5
+offset_bottom = -3.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 26
+text = "Música"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="Panel/OptionsPanel" unique_id=2070262036]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -118.5
+offset_top = 279.0
+offset_right = 118.5
+offset_bottom = 295.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Panel/OptionsPanel/SFXSlider" unique_id=1563693149]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.5
+offset_top = -33.0
+offset_right = 66.5
+offset_bottom = -3.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 26
+text = "Efeitos Sonoros"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSyncCheckBox" type="CheckBox" parent="Panel/OptionsPanel" unique_id=812603089]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = 146.5
+offset_right = 12.0
+offset_bottom = 170.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="VSyncLabel" type="Label" parent="Panel/OptionsPanel" unique_id=1506334764]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -97.0
+offset_top = 102.5
+offset_right = 97.0
+offset_bottom = 132.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 26
+text = "VSync"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="Panel/OptionsPanel" unique_id=1371385546]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = 228.5
+offset_right = 12.0
+offset_bottom = 252.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="FullscreenLabel" type="Label" parent="Panel/OptionsPanel" unique_id=872064679]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = 182.5
+offset_right = 117.0
+offset_bottom = 212.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 26
+text = "Fullscreen"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/OptionsPanel" unique_id=800239372]
+libraries/ = SubResource("AnimationLibrary_xovtl")
+
 [node name="Label" type="Label" parent="Panel" unique_id=1866951653]
 layout_mode = 1
 offset_left = 31.0
@@ -129,12 +369,25 @@ text = "Resumir"
 flat = true
 alignment = 0
 
+[node name="Options" type="Button" parent="Panel" unique_id=768255498]
+texture_filter = 1
+layout_mode = 0
+offset_left = 26.0
+offset_top = 165.0
+offset_right = 244.0
+offset_bottom = 227.0
+theme_override_fonts/font = ExtResource("2_bl585")
+theme_override_font_sizes/font_size = 48
+text = "Opções"
+flat = true
+alignment = 0
+
 [node name="Quit" type="Button" parent="Panel" unique_id=1932472319]
 layout_mode = 0
 offset_left = 26.0
-offset_top = 170.0
+offset_top = 227.0
 offset_right = 196.0
-offset_bottom = 232.0
+offset_bottom = 289.0
 theme_override_fonts/font = ExtResource("2_bl585")
 theme_override_font_sizes/font_size = 48
 text = "Sair"
@@ -142,6 +395,7 @@ flat = true
 alignment = 0
 
 [node name="Fade" type="ColorRect" parent="Panel" unique_id=342058220]
+visible = false
 material = SubResource("ShaderMaterial_xovtl")
 layout_mode = 1
 anchors_preset = 15
@@ -159,5 +413,5 @@ color = Color(0, 0, 0, 1)
 [node name="fadeAnim" type="AnimationPlayer" parent="Panel/Fade" unique_id=774769685]
 libraries/ = SubResource("AnimationLibrary_feba6")
 
-[connection signal="button_up" from="Panel/Resume" to="." method="pause_toggle"]
+[connection signal="button_up" from="Panel/Options" to="." method="_on_options_button_up"]
 [connection signal="button_up" from="Panel/Quit" to="." method="_on_quit_button_up"]

@@ -118,6 +118,7 @@ var nearby_interactions: Array[ObjectInteraction] = []
 
 
 func _ready() -> void:
+	SaveData.save_progress()
 	# Conecta os sinais do Dialog Box aos métodos responsáveis
 	# por bloquear e liberar o movimento do jogador.
 	dialog_box.dialog_opened.connect(_on_dialog_opened)

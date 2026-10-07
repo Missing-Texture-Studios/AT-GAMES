@@ -480,9 +480,9 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(0.24148414, 1),
+"transitions": PackedFloat32Array(0.13869624, 1),
 "update": 0,
-"values": [Vector2(1362, 918), Vector2(790, 404)]
+"values": [Vector2(1408, 918), Vector2(790, 404)]
 }
 
 [sub_resource type="Animation" id="Animation_cr4s1"]
@@ -895,5 +895,6 @@ bus = &"Mus"
 
 [connection signal="timeout" from="CanvasLayer/Control/Portrait/BlinkTimer" to="CanvasLayer/Control/Portrait" method="_on_blink_timer_timeout"]
 [connection signal="button_up" from="CanvasLayer/Control/NewGame" to="." method="_on_new_game_button_up"]
+[connection signal="button_up" from="CanvasLayer/Control/Continue" to="." method="_on_continue_button_up"]
 [connection signal="button_up" from="CanvasLayer/Control/Options" to="." method="_on_options_button_up"]
 [connection signal="button_up" from="CanvasLayer/Control/Quit" to="." method="_on_quit_button_up"]

@@ -5,6 +5,7 @@ var opts_open = false
 @onready var sfx_slider: HSlider = $CanvasLayer/Control/OptionsPanel/SFXSlider
 @onready var vsync_checkbox: CheckBox = $CanvasLayer/Control/OptionsPanel/VSyncCheckBox
 @onready var fullscreen_checkbox: CheckBox = $CanvasLayer/Control/OptionsPanel/FullscreenCheckBox
+@onready var continueBtn: Button = $CanvasLayer/Control/Continue
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,10 +19,14 @@ func _ready() -> void:
 	vsync_checkbox.toggled.connect(Settings.set_vsync_enabled)
 	fullscreen_checkbox.toggled.connect(Settings.set_fullscreen_enabled)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("reset"):
+		get_tree().reload_current_scene()
+	if SaveData.level == "res://scenes/maps/level_1.tscn":
+		continueBtn.disabled = true
+	else:
+		continueBtn.disabled = false
 
 
 func _on_options_button_up() -> void:
@@ -42,4 +47,11 @@ func _on_quit_button_up() -> void:
 func _on_new_game_button_up() -> void:
 	menu_anim.play("fade")
 	await menu_anim.animation_finished
+	SaveData.level = "res://scenes/maps/level_1.tscn"
 	Loading.load_scene("res://scenes/maps/level_1.tscn")
+
+
+func _on_continue_button_up() -> void:
+	menu_anim.play("fade")
+	await menu_anim.animation_finished
+	Loading.load_scene(SaveData.level)

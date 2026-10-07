@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://biwgvfll1f101" path="res://scripts/player/flashlight.gd" id="9_0w4p8"]
 [ext_resource type="Shader" uid="uid://cntw0a4n6v6gy" path="res://scripts/UI/burn.gdshader" id="9_c4rn8"]
 [ext_resource type="AudioStream" uid="uid://0i5vgtycp36y" path="res://sounds/player/ouch.wav" id="10_hurt"]
+[ext_resource type="Shader" uid="uid://c0xmooyfa7x1d" path="res://scripts/UI/dither.gdshader" id="10_t62v4"]
 [ext_resource type="AudioStream" uid="uid://dryy7cap7vn2t" path="res://sounds/player/step.wav" id="11_step"]
 [ext_resource type="AudioStream" uid="uid://c1q3jehsuw8jh" path="res://sounds/player/flashlightClick.wav" id="15_0878f"]
 [ext_resource type="AudioStream" uid="uid://cc1kxj7wq0u6l" path="res://sounds/player/sprint.wav" id="16_dferu"]
@@ -187,6 +188,30 @@ animations = [{
 "name": &"up",
 "speed": 4.0
 }]
+
+[sub_resource type="Gradient" id="Gradient_afsss"]
+offsets = PackedFloat32Array(0.31343284, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_642so"]
+frequency = 0.0473
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uqfkb"]
+noise = SubResource("FastNoiseLite_642so")
+color_ramp = SubResource("Gradient_afsss")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e0ryh"]
+shader = ExtResource("10_t62v4")
+shader_parameter/effect_strength = 0.1250000059375
+shader_parameter/gamma_adjust = 2.4970000711075
+shader_parameter/desired_screen_width = 640.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_uqfkb")
+shader_parameter/dither_strength = 0.10000000149012
+shader_parameter/posterize_luma_levels = 13.154000577315
+shader_parameter/color_grad_shadows = Color(0, 0.25, 0.25, 1)
+shader_parameter/color_grad_midtones = Color(0.5, 0, 0.5, 1)
+shader_parameter/color_grad_lights = Color(1, 1, 0, 1)
+shader_parameter/color_grad_midpoint = 0.45200001821012
+shader_parameter/color_grad_strength = 0.1730000082175
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h5w3c"]
 shader = ExtResource("7_wl55n")
@@ -615,6 +640,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/UI" unique_id=1502467013]
+material = SubResource("ShaderMaterial_e0ryh")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Health Label" type="Label" parent="Camera2D/CanvasLayer/UI" unique_id=1909198052]
 layout_mode = 1
 offset_left = 10.0
@@ -705,10 +739,6 @@ offset_bottom = 330.0
 visible = false
 layout_mode = 1
 
-[node name="PauseMenu" parent="Camera2D/CanvasLayer/UI" unique_id=173468364 instance=ExtResource("5_7860b")]
-visible = false
-layout_mode = 1
-
 [node name="Fade" type="ColorRect" parent="Camera2D/CanvasLayer/UI" unique_id=577743987]
 material = SubResource("ShaderMaterial_t62v4")
 layout_mode = 1
@@ -722,6 +752,10 @@ color = Color(0, 0, 0, 1)
 
 [node name="fadeAnim" type="AnimationPlayer" parent="Camera2D/CanvasLayer/UI/Fade" unique_id=1103701845]
 libraries/ = SubResource("AnimationLibrary_afsss")
+
+[node name="PauseMenu" parent="Camera2D/CanvasLayer/UI" unique_id=173468364 instance=ExtResource("5_7860b")]
+visible = false
+layout_mode = 1
 
 [node name="InteractLabel" type="Label" parent="." unique_id=263063453]
 z_index = 1
