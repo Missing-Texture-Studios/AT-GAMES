@@ -6,6 +6,7 @@ var opts_open = false
 @onready var vsync_checkbox: CheckBox = $CanvasLayer/Control/OptionsPanel/VSyncCheckBox
 @onready var fullscreen_checkbox: CheckBox = $CanvasLayer/Control/OptionsPanel/FullscreenCheckBox
 @onready var continueBtn: Button = $CanvasLayer/Control/Continue
+@onready var portrait_anim: AnimationPlayer = $CanvasLayer/Control/Portrait/PortraitAnim
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

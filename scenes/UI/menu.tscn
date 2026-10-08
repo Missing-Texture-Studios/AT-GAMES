@@ -365,18 +365,6 @@ tracks/6/keys = {
 "update": 1,
 "values": [2]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Portrait:position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1408, 918)]
-}
 
 [sub_resource type="Animation" id="Animation_45usf"]
 resource_name = "fade"
@@ -472,18 +460,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(-231, 448), Vector2(33, 448)]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Portrait:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(0.13869624, 1),
-"update": 0,
-"values": [Vector2(1408, 918), Vector2(790, 404)]
-}
 
 [sub_resource type="Animation" id="Animation_cr4s1"]
 resource_name = "options"
@@ -534,6 +510,43 @@ shader_parameter/burnColor = Color(0, 0, 0, 1)
 shader_parameter/pixel_size = 0.006
 shader_parameter/blend_steps = 100.0
 shader_parameter/colorCurve = SubResource("GradientTexture2D_ofy2k")
+
+[sub_resource type="Animation" id="Animation_q8qjh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1408, 918)]
+}
+
+[sub_resource type="Animation" id="Animation_poj5t"]
+resource_name = "move"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.17677675, 1),
+"update": 0,
+"values": [Vector2(1408, 918), Vector2(776, 402)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pujkf"]
+_data = {
+&"RESET": SubResource("Animation_q8qjh"),
+&"move": SubResource("Animation_poj5t")
+}
 
 [node name="Menu" type="Node2D" unique_id=784054979]
 script = ExtResource("1_svcqa")
@@ -874,10 +887,12 @@ alignment = 0
 
 [node name="MenuAnim" type="AnimationPlayer" parent="CanvasLayer/Control" unique_id=328482057]
 libraries/ = SubResource("AnimationLibrary_45usf")
+autoplay = &"RESET"
 
 [node name="Whoosh" type="AudioStreamPlayer" parent="CanvasLayer/Control/MenuAnim" unique_id=1575065032]
 
 [node name="ColorRect3" type="ColorRect" parent="CanvasLayer/Control" unique_id=924136735]
+z_index = 3
 material = SubResource("ShaderMaterial_xx4du")
 layout_mode = 1
 anchors_preset = 15
@@ -892,6 +907,10 @@ color = Color(0, 0, 0, 1)
 stream = ExtResource("13_2ruad")
 autoplay = true
 bus = &"Mus"
+
+[node name="PortraitAnim" type="AnimationPlayer" parent="." unique_id=2087201296]
+root_node = NodePath("../CanvasLayer/Control/Portrait")
+libraries/ = SubResource("AnimationLibrary_pujkf")
 
 [connection signal="timeout" from="CanvasLayer/Control/Portrait/BlinkTimer" to="CanvasLayer/Control/Portrait" method="_on_blink_timer_timeout"]
 [connection signal="button_up" from="CanvasLayer/Control/NewGame" to="." method="_on_new_game_button_up"]

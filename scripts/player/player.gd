@@ -124,19 +124,7 @@ func die() -> void:
 	fadein()
 	await fade_anim.animation_finished
 
-	get_tree().change_scene_to_file("res://game_over.tscn")
-
-	is_dead = true
-	can_move = false
-	velocity = Vector2.ZERO
-
-	set_process(false)
-	set_physics_process(false)
-
-	fadein()
-	await fade_anim.animation_finished
-
-	get_tree().change_scene_to_file("res://game_over.tscn")
+	get_tree().change_scene_to_file("res://scenes/UI/game_over.tscn")
 
 # Velocidade de movimento do jogador.
 const SPEED := 50.0
