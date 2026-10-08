@@ -395,7 +395,6 @@ flat = true
 alignment = 0
 
 [node name="Fade" type="ColorRect" parent="Panel" unique_id=342058220]
-visible = false
 material = SubResource("ShaderMaterial_xovtl")
 layout_mode = 1
 anchors_preset = 15

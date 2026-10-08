@@ -130,7 +130,7 @@ func _on_animated_sprite_frame_changed() -> void:
 	# Verifica se estamos atacando e se chegou no frame correto (10 ou 11, dependendo de onde quer o dano)
 	if state == STATES.ATTACKING and animated_sprite.animation == "chomp" and animated_sprite.frame == 10:
 		if player_inside_hitbox:
-			if player.has_method("take_damage"):
+			if player.has_method("take_damage") and player.health>0:
 				player.take_damage(damage)
 			else:
 				player.health -= damage

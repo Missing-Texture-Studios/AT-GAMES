@@ -21,6 +21,7 @@ extends CharacterBody2D
 @onready var oomph: AudioStreamPlayer2D = $Oomph
 @onready var light_hum: AudioStreamPlayer2D = $LightHum
 
+var is_dead := false
 
 @export_category("Start Dialog")
 
@@ -89,9 +90,13 @@ const STAM_RECOVER_THRESHOLD := 25.0 # stamina needed to leave exhausted state
 
 func take_damage(amount: float) -> void:
 	health = max(0.0, health - amount)
+
 	damage_animation.play("damage")
 	hurt_audio.stream = HURT_SOUNDS.pick_random()
 	hurt_audio.play()
+
+	if health <= 0.0:
+		die()
 
 
 func _on_player_frame_changed() -> void:
@@ -103,6 +108,35 @@ func _on_player_frame_changed() -> void:
 func input_dir_is_walking() -> bool:
 	return can_move and velocity != Vector2.ZERO and animated_sprite.animation in ["up", "down", "left", "right"]
 
+func die() -> void:
+	if is_dead:
+		return
+
+	is_dead = true
+	can_move = false
+	velocity = Vector2.ZERO
+	step_audio.stop()
+	light_hum.stop()
+	interact_label.visible = false
+	set_process(false)
+	set_physics_process(false)
+
+	fadein()
+	await fade_anim.animation_finished
+
+	get_tree().change_scene_to_file("res://game_over.tscn")
+
+	is_dead = true
+	can_move = false
+	velocity = Vector2.ZERO
+
+	set_process(false)
+	set_physics_process(false)
+
+	fadein()
+	await fade_anim.animation_finished
+
+	get_tree().change_scene_to_file("res://game_over.tscn")
 
 # Velocidade de movimento do jogador.
 const SPEED := 50.0

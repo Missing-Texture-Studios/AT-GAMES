@@ -1,0 +1,276 @@
+[gd_scene format=3 uid="uid://2w7qal61lpuv"]
+
+[ext_resource type="Script" uid="uid://bsykvjrqf5wnc" path="res://scripts/UI/game_over.gd" id="1_4eny6"]
+[ext_resource type="Shader" uid="uid://dsps14wa0va04" path="res://scripts/UI/wiggle.gdshader" id="2_1t5eu"]
+[ext_resource type="Texture2D" uid="uid://b02frgorawy8j" path="res://sprites/UI/gameover.png" id="3_kthu3"]
+[ext_resource type="Shader" uid="uid://dby0bt830brsa" path="res://scripts/UI/bloom2.gdshader" id="4_iw4x2"]
+[ext_resource type="Shader" uid="uid://8igmp73cpec1" path="res://scripts/UI/vignette.gdshader" id="5_c1o0h"]
+[ext_resource type="Shader" uid="uid://crq66ci04qh2v" path="res://scripts/UI/burnVignette.gdshader" id="6_oakr8"]
+[ext_resource type="FontFile" uid="uid://db5282d4yqiam" path="res://fonts/TINY5-REGULAR.TTF" id="7_0jj1a"]
+[ext_resource type="Shader" uid="uid://cntw0a4n6v6gy" path="res://scripts/UI/burn.gdshader" id="8_hgukw"]
+[ext_resource type="AudioStream" uid="uid://c4x1j1qdt0i26" path="res://sounds/music/AAAAAAAAAA.mp3" id="9_pae77"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e0ryh"]
+shader = ExtResource("2_1t5eu")
+shader_parameter/strength = 4.055
+shader_parameter/speed = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qr8b0"]
+shader = ExtResource("4_iw4x2")
+shader_parameter/bloom_spread = 0.94
+shader_parameter/bloom_intensity = 3.16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oso4m"]
+shader = ExtResource("5_c1o0h")
+shader_parameter/alpha = 0.87
+shader_parameter/inner_radius = 0.66
+shader_parameter/outer_radius = 1.06
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ie1h7"]
+shader = ExtResource("6_oakr8")
+shader_parameter/radius = 0.52
+shader_parameter/speed = 0.4800000228
+shader_parameter/effect_color = Color(0.23052233, 0.029115142, 0.054610327, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_snn5w"]
+shader = ExtResource("2_1t5eu")
+shader_parameter/strength = 1.5
+shader_parameter/speed = 8.0
+
+[sub_resource type="Gradient" id="Gradient_dbtkw"]
+colors = PackedColorArray(0.019607844, 0, 0.05490196, 1, 0.43476868, 1.0757223e-05, 0.31905848, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nmlhc"]
+gradient = SubResource("Gradient_dbtkw")
+
+[sub_resource type="Gradient" id="Gradient_rh05k"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wl4bd"]
+frequency = 0.02
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dferu"]
+noise = SubResource("FastNoiseLite_wl4bd")
+color_ramp = SubResource("Gradient_rh05k")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r0nwi"]
+shader = ExtResource("8_hgukw")
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/radius = 1.045
+shader_parameter/borderWidth = 0.2
+shader_parameter/burnMult = 0.34
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_dferu")
+shader_parameter/burnColor = Color(0, 0, 0, 1)
+shader_parameter/pixel_size = 0.006
+shader_parameter/blend_steps = 100.0
+shader_parameter/colorCurve = SubResource("GradientTexture2D_nmlhc")
+
+[sub_resource type="Animation" id="Animation_uqfkb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.045]
+}
+
+[sub_resource type="Animation" id="Animation_642so"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.045, -0.075]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l84al"]
+_data = {
+&"RESET": SubResource("Animation_uqfkb"),
+&"fade": SubResource("Animation_642so")
+}
+
+[sub_resource type="Animation" id="Animation_njo54"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/bloom_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.16]
+}
+
+[sub_resource type="Animation" id="Animation_g86wb"]
+resource_name = "pulse"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/bloom_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(0.20306318, 1, 1),
+"update": 0,
+"values": [3.16, 10.03, 3.16]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6t72v"]
+_data = {
+&"RESET": SubResource("Animation_njo54"),
+&"pulse": SubResource("Animation_g86wb")
+}
+
+[node name="GameOver" type="Control" unique_id=114736030]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4eny6")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=409413983]
+material = SubResource("ShaderMaterial_e0ryh")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_kthu3")
+expand_mode = 2
+stretch_mode = 6
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1419028216]
+material = SubResource("ShaderMaterial_qr8b0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=1592700081]
+material = SubResource("ShaderMaterial_oso4m")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1548953321]
+material = SubResource("ShaderMaterial_ie1h7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Opts" type="Label" parent="." unique_id=1080653927]
+material = SubResource("ShaderMaterial_snn5w")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -177.0
+offset_top = 159.0
+offset_right = 177.0
+offset_bottom = 213.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 26
+theme_override_fonts/font = ExtResource("7_0jj1a")
+theme_override_font_sizes/font_size = 48
+text = "Sanidade Perdida"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Retry" type="Button" parent="." unique_id=339993744]
+texture_filter = 1
+material = SubResource("ShaderMaterial_snn5w")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_right = 190.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 24
+theme_override_fonts/font = ExtResource("7_0jj1a")
+theme_override_font_sizes/font_size = 48
+text = "Tentar Novamente"
+flat = true
+
+[node name="Quit" type="Button" parent="." unique_id=478150462]
+texture_filter = 1
+material = SubResource("ShaderMaterial_snn5w")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = 78.0
+offset_right = 190.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 24
+theme_override_fonts/font = ExtResource("7_0jj1a")
+theme_override_font_sizes/font_size = 48
+text = "Desistir"
+flat = true
+
+[node name="Fade" type="ColorRect" parent="." unique_id=2140729195]
+material = SubResource("ShaderMaterial_r0nwi")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.90051
+offset_top = -35.0
+offset_right = 64.90051
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="fadeAnim" type="AnimationPlayer" parent="Fade" unique_id=1558312044]
+libraries/ = SubResource("AnimationLibrary_l84al")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1799186330]
+stream = ExtResource("9_pae77")
+autoplay = true
+bus = &"Mus"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=549713606]
+libraries/ = SubResource("AnimationLibrary_6t72v")
+autoplay = &"pulse"
+
+[connection signal="button_up" from="Retry" to="." method="_on_retry_button_up"]
+[connection signal="button_up" from="Quit" to="." method="_on_quit_button_up"]
