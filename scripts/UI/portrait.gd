@@ -6,6 +6,7 @@ func _ready():
 
 func _process(_delta):
 	offset = Vector2(0.0,0.0)
+	z_index = 0
 
 func _on_blink_timer_timeout() -> void:
 	blink_timer.wait_time = randf_range(3,6)

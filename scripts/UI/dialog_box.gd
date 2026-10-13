@@ -11,6 +11,7 @@ signal dialog_closed
 @onready var dialog_text: Label = $"Panel/Dialog Text"
 @onready var options_scroll: ScrollContainer = $Panel/OptionsScroll
 @onready var options_container: VBoxContainer = $Panel/OptionsScroll/Options
+@onready var tick: AudioStreamPlayer = $Tick
 
 
 # Controla as animações de abrir, revelar e fechar o dialog.
@@ -217,28 +218,28 @@ func _show_player_portrait() -> void:
 
 
 func _start_reveal() -> void:
-	# Marca que o texto está sendo revelado.
 	is_revealing = true
-
-	# O jogador não pode interagir normalmente durante a revelação.
 	can_interact = false
-
 	options_scroll.visible = false
 
-	# Executa a animação de revelação.
-	animation_player.play("Reveal")
-	await animation_player.animation_finished
+	var previous_visible_characters := dialog_text.visible_characters
 
-	# Se a revelação foi interrompida, não continua daqui.
+	animation_player.play("Reveal")
+
+	while animation_player.current_animation == "Reveal" and is_revealing:
+		var current_visible_characters := dialog_text.visible_characters
+
+		if current_visible_characters > previous_visible_characters:
+			tick.play()
+
+		previous_visible_characters = current_visible_characters
+		await get_tree().process_frame
+
 	if not is_revealing:
 		return
 
-	# A revelação terminou normalmente.
 	is_revealing = false
 	can_interact = true
-
-	# Agora que o texto terminou de aparecer,
-	# as respostas podem ser mostradas.
 	_show_responses()
 
 
@@ -307,7 +308,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			selected_response - 1,
 			response_options.size()
 		)
-
+		tick.play()
 		_update_response_selection()
 		get_viewport().set_input_as_handled()
 
@@ -315,7 +316,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		selected_response = (
 			selected_response + 1
 		) % response_options.size()
-
+		tick.play()
 		_update_response_selection()
 		get_viewport().set_input_as_handled()
 
@@ -368,6 +369,7 @@ func _on_option_gui_input(
 		return
 
 	selected_response = response_index
+	tick.play()
 	_update_response_selection()
 
 	if can_interact:

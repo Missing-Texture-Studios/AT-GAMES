@@ -25,9 +25,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
 	if SaveData.level == "res://scenes/maps/level_1.tscn":
-		continueBtn.disabled = true
+		UISounds.set_button_disabled(continueBtn,true)
 	else:
-		continueBtn.disabled = false
+		UISounds.set_button_disabled(continueBtn,false)
 
 
 func _on_options_button_up() -> void:
@@ -53,6 +53,8 @@ func _on_new_game_button_up() -> void:
 
 
 func _on_continue_button_up() -> void:
+	if UISounds.is_button_disabled(continueBtn):
+		return
 	menu_anim.play("fade")
 	await menu_anim.animation_finished
 	Loading.load_scene(SaveData.level)

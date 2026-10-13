@@ -253,6 +253,7 @@ offset_top = 279.0
 offset_right = 118.5
 offset_bottom = 295.0
 grow_horizontal = 2
+mouse_default_cursor_shape = 10
 
 [node name="Label" type="Label" parent="Panel/OptionsPanel/SFXSlider" unique_id=1563693149]
 layout_mode = 1
@@ -286,6 +287,8 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_default_cursor_shape = 2
+keep_pressed_outside = true
 
 [node name="VSyncLabel" type="Label" parent="Panel/OptionsPanel" unique_id=1506334764]
 layout_mode = 1
@@ -323,6 +326,8 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_default_cursor_shape = 2
+keep_pressed_outside = true
 
 [node name="FullscreenLabel" type="Label" parent="Panel/OptionsPanel" unique_id=872064679]
 layout_mode = 1
@@ -363,8 +368,10 @@ offset_left = 26.0
 offset_top = 103.0
 offset_right = 196.0
 offset_bottom = 165.0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bl585")
 theme_override_font_sizes/font_size = 48
+keep_pressed_outside = true
 text = "Resumir"
 flat = true
 alignment = 0
@@ -376,8 +383,10 @@ offset_left = 26.0
 offset_top = 165.0
 offset_right = 244.0
 offset_bottom = 227.0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bl585")
 theme_override_font_sizes/font_size = 48
+keep_pressed_outside = true
 text = "Opções"
 flat = true
 alignment = 0
@@ -388,8 +397,10 @@ offset_left = 26.0
 offset_top = 227.0
 offset_right = 196.0
 offset_bottom = 289.0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bl585")
 theme_override_font_sizes/font_size = 48
+keep_pressed_outside = true
 text = "Sair"
 flat = true
 alignment = 0

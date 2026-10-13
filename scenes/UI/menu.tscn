@@ -260,6 +260,21 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(344, 471), Vector2(344, 683)]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../MenuAnim/Whoosh")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("14_whoosh")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ruad"]
 _data = {
@@ -463,6 +478,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_cr4s1"]
 resource_name = "options"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -470,7 +486,7 @@ tracks/0/path = NodePath("OptionsPanel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.17075506, 1),
 "update": 0,
 "values": [Vector2(1167, 32), Vector2(773, 32)]
@@ -643,6 +659,7 @@ libraries/ = SubResource("AnimationLibrary_2ruad")
 autoplay = &"glow"
 
 [node name="OptionsPanel" type="Panel" parent="CanvasLayer/Control" unique_id=2106140582]
+z_index = 1
 texture_filter = 1
 material = SubResource("ShaderMaterial_7860b")
 layout_mode = 1
@@ -714,6 +731,7 @@ offset_top = 216.0
 offset_right = 118.5
 offset_bottom = 232.0
 grow_horizontal = 2
+mouse_default_cursor_shape = 10
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/OptionsPanel/MusSlider" unique_id=117300002]
 layout_mode = 1
@@ -741,6 +759,7 @@ offset_top = 279.0
 offset_right = 118.5
 offset_bottom = 295.0
 grow_horizontal = 2
+mouse_default_cursor_shape = 10
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/OptionsPanel/SFXSlider" unique_id=1868395674]
 layout_mode = 1
@@ -774,6 +793,8 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_default_cursor_shape = 2
+keep_pressed_outside = true
 
 [node name="VSyncLabel" type="Label" parent="CanvasLayer/Control/OptionsPanel" unique_id=1865767957]
 layout_mode = 1
@@ -811,6 +832,8 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_default_cursor_shape = 2
+keep_pressed_outside = true
 
 [node name="FullscreenLabel" type="Label" parent="CanvasLayer/Control/OptionsPanel" unique_id=1029364385]
 layout_mode = 1
@@ -839,8 +862,10 @@ offset_left = -240.0
 offset_top = 262.0
 offset_right = -22.0
 offset_bottom = 324.0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("4_svcqa")
 theme_override_font_sizes/font_size = 48
+keep_pressed_outside = true
 text = "Novo Jogo"
 flat = true
 alignment = 0
@@ -852,9 +877,10 @@ offset_left = -240.0
 offset_top = 324.0
 offset_right = -22.0
 offset_bottom = 386.0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("4_svcqa")
 theme_override_font_sizes/font_size = 48
-disabled = true
+keep_pressed_outside = true
 text = "Continuar"
 flat = true
 alignment = 0
@@ -866,8 +892,10 @@ offset_left = -240.0
 offset_top = 386.0
 offset_right = -22.0
 offset_bottom = 448.0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("4_svcqa")
 theme_override_font_sizes/font_size = 48
+keep_pressed_outside = true
 text = "Opções"
 flat = true
 alignment = 0
@@ -879,8 +907,10 @@ offset_left = -240.0
 offset_top = 448.0
 offset_right = -22.0
 offset_bottom = 510.0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("4_svcqa")
 theme_override_font_sizes/font_size = 48
+keep_pressed_outside = true
 text = "Sair"
 flat = true
 alignment = 0
