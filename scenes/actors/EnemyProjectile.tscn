@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://6sl2i6vg54q4"]
+
+[ext_resource type="Script" uid="uid://b5q8lfvmnl0qx" path="res://enemy_projectile.gd" id="1_3wtia"]
+[ext_resource type="Texture2D" uid="uid://1qw8805yf5cg" path="res://sprites/enemies/placeholder/bulletplacheholder.png" id="2_8fodj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8fodj"]
+radius = 5.0990195
+
+[node name="EnemyProjectile" type="Area2D" unique_id=681375592]
+script = ExtResource("1_3wtia")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1624743284]
+texture = ExtResource("2_8fodj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=193147343]
+shape = SubResource("CircleShape2D_8fodj")
+
+[node name="Lifetime" type="Timer" parent="." unique_id=918273062]
+wait_time = 5.0

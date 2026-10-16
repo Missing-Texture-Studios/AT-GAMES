@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://cia7cduj5fuba"]
+
+[ext_resource type="Script" uid="uid://c2pxxxp2auba0" path="res://ranged_enemy.gd" id="1_3alu3"]
+[ext_resource type="Texture2D" uid="uid://b1o0hs7bd3p06" path="res://sprites/enemies/placeholder/placheholder.png" id="2_85qte"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xp2cc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_85qte")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_85qte")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qypn2"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xh3ou"]
+radius = 180.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8mtni"]
+radius = 100.0
+
+[node name="shootingEnemy" type="CharacterBody2D" unique_id=2031085292]
+script = ExtResource("1_3alu3")
+speed = null
+chase_range = null
+projectile_speed = null
+projectile_damage = null
+shoot_interval = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=59014203]
+sprite_frames = SubResource("SpriteFrames_xp2cc")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=156085555]
+shape = SubResource("CircleShape2D_qypn2")
+
+[node name="ShootRange" type="Area2D" parent="." unique_id=671125662]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootRange" unique_id=357206637]
+shape = SubResource("CircleShape2D_xh3ou")
+
+[node name="FleeRange" type="Area2D" parent="." unique_id=1775665278]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FleeRange" unique_id=1155932594]
+shape = SubResource("CircleShape2D_8mtni")
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=1238297712]
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=442717911]
+
+[connection signal="body_entered" from="ShootRange" to="." method="_on_shoot_range_body_entered"]
+[connection signal="body_exited" from="ShootRange" to="." method="_on_shoot_range_body_exited"]
+[connection signal="body_entered" from="FleeRange" to="." method="_on_flee_range_body_entered"]
+[connection signal="body_exited" from="FleeRange" to="." method="_on_flee_range_body_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
