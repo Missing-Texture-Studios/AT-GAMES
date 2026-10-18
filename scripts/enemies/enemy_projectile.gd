@@ -1,5 +1,5 @@
 extends Area2D
-
+@onready var player = get_tree().get_first_node_in_group("player")
 @export var speed: float = 200.0
 @export var damage: float = 10.0
 
@@ -20,6 +20,8 @@ func _physics_process(delta: float) -> void:
 	
 func _on_body_entered(body: Node2D) -> void:
 	if body != target:
+		if body is TileMapLayer or body is StaticBody2D:
+			queue_free()
 		return
 	if body.has_method("take_damage"):
 		body.take_damage(damage)

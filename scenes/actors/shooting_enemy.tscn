@@ -1,67 +1,126 @@
 [gd_scene format=3 uid="uid://cia7cduj5fuba"]
 
-[ext_resource type="Script" uid="uid://c2pxxxp2auba0" path="res://ranged_enemy.gd" id="1_3alu3"]
-[ext_resource type="Texture2D" uid="uid://b1o0hs7bd3p06" path="res://sprites/enemies/placeholder/placheholder.png" id="2_85qte"]
+[ext_resource type="Script" uid="uid://c2pxxxp2auba0" path="res://scripts/enemies/ranged_enemy.gd" id="1_3alu3"]
+[ext_resource type="PackedScene" uid="uid://6sl2i6vg54q4" path="res://scenes/actors/EnemyProjectile.tscn" id="3_projectile"]
+[ext_resource type="Texture2D" uid="uid://cskt6ssyl1ceq" path="res://sprites/enemies/shooter/shooter.png" id="3_xh3ou"]
+[ext_resource type="AudioStream" uid="uid://cbdqfkk7hlywb" path="res://sounds/slime/screech.wav" id="4_screech"]
+[ext_resource type="Texture2D" uid="uid://cdnv8u4vngoug" path="res://sprites/FX/lightCookie.png" id="5_8mtni"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mtni"]
+atlas = ExtResource("3_xh3ou")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6bvh"]
+atlas = ExtResource("3_xh3ou")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1655e"]
+atlas = ExtResource("3_xh3ou")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bgfc"]
+atlas = ExtResource("3_xh3ou")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7nel"]
+atlas = ExtResource("3_xh3ou")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtuuk"]
+atlas = ExtResource("3_xh3ou")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fht23"]
+atlas = ExtResource("3_xh3ou")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4r35"]
+atlas = ExtResource("3_xh3ou")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tln6j"]
+atlas = ExtResource("3_xh3ou")
+region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xp2cc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_85qte")
+"texture": SubResource("AtlasTexture_8mtni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6bvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1655e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bgfc")
 }],
 "loop": 1,
-"name": &"idle",
+"name": &"move",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_85qte")
+"texture": SubResource("AtlasTexture_y7nel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtuuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fht23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4r35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tln6j")
 }],
-"loop": 1,
-"name": &"run",
-"speed": 5.0
+"loop": 0,
+"name": &"shoot",
+"speed": 12.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_qypn2"]
-radius = 11.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_xh3ou"]
-radius = 180.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8mtni"]
-radius = 100.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_utcx7"]
+radius = 14.0
+height = 52.0
 
 [node name="shootingEnemy" type="CharacterBody2D" unique_id=2031085292]
 script = ExtResource("1_3alu3")
-speed = null
-chase_range = null
-projectile_speed = null
-projectile_damage = null
-shoot_interval = null
+projectile_scene = ExtResource("3_projectile")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=59014203]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_xp2cc")
-animation = &"idle"
+animation = &"move"
+autoplay = "move"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=156085555]
-shape = SubResource("CircleShape2D_qypn2")
-
-[node name="ShootRange" type="Area2D" parent="." unique_id=671125662]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootRange" unique_id=357206637]
-shape = SubResource("CircleShape2D_xh3ou")
-
-[node name="FleeRange" type="Area2D" parent="." unique_id=1775665278]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FleeRange" unique_id=1155932594]
-shape = SubResource("CircleShape2D_8mtni")
+position = Vector2(2, 3)
+shape = SubResource("CapsuleShape2D_utcx7")
 
 [node name="ShootTimer" type="Timer" parent="." unique_id=1238297712]
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=442717911]
 
-[connection signal="body_entered" from="ShootRange" to="." method="_on_shoot_range_body_entered"]
-[connection signal="body_exited" from="ShootRange" to="." method="_on_shoot_range_body_exited"]
-[connection signal="body_entered" from="FleeRange" to="." method="_on_flee_range_body_entered"]
-[connection signal="body_exited" from="FleeRange" to="." method="_on_flee_range_body_exited"]
+[node name="ScreechAudio" type="AudioStreamPlayer2D" parent="." unique_id=1752862665]
+stream = ExtResource("4_screech")
+max_distance = 500.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="ShootAudio" type="AudioStreamPlayer2D" parent="." unique_id=1538871682]
+max_distance = 500.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=495590672]
+texture_filter = 1
+energy = 0.35
+shadow_enabled = true
+shadow_color = Color(0.07843422, 0.02225674, 0.058794856, 0.6627451)
+texture = ExtResource("5_8mtni")
+texture_scale = 0.5
+
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

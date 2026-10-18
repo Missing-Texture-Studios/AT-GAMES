@@ -6,7 +6,7 @@ var opts_open = false
 @onready var vsync_checkbox: CheckBox = $CanvasLayer/Control/OptionsPanel/VSyncCheckBox
 @onready var fullscreen_checkbox: CheckBox = $CanvasLayer/Control/OptionsPanel/FullscreenCheckBox
 @onready var continueBtn: Button = $CanvasLayer/Control/Continue
-@onready var portrait_anim: AnimationPlayer = $CanvasLayer/Control/Portrait/PortraitAnim
+@onready var portrait_anim: AnimationPlayer = $PortraitAnim
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,7 +21,7 @@ func _ready() -> void:
 	fullscreen_checkbox.toggled.connect(Settings.set_fullscreen_enabled)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
 	if SaveData.level == "res://scenes/maps/level_1.tscn":
@@ -48,6 +48,7 @@ func _on_quit_button_up() -> void:
 func _on_new_game_button_up() -> void:
 	menu_anim.play("fade")
 	await menu_anim.animation_finished
+	Level1Puzzle.reset_progress()
 	SaveData.level = "res://scenes/maps/level_1.tscn"
 	Loading.load_scene("res://scenes/maps/level_1.tscn")
 

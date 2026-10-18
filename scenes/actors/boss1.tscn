@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://do1dms47glk7k" path="res://sprites/FX/blood.png" id="1_oap31"]
 [ext_resource type="Shader" uid="uid://dsps14wa0va04" path="res://scripts/UI/wiggle.gdshader" id="2_kolhk"]
 [ext_resource type="Texture2D" uid="uid://c8gfs41va4bcd" path="res://sprites/player/player.png" id="3_vguob"]
+[ext_resource type="Script" uid="uid://w88n8firelbs" path="res://scripts/enemies/rising_sorrow.gd" id="4_rising_sorrow"]
+[ext_resource type="Texture2D" uid="uid://cdnv8u4vngoug" path="res://sprites/FX/lightCookie.png" id="5_vguob"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_17yq2"]
 
@@ -179,7 +181,14 @@ animations = [{
 "speed": 4.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1035862160]
+[sub_resource type="CircleShape2D" id="CircleShape2D_detection"]
+radius = 320.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_charge"]
+radius = 11.045361
+
+[node name="Denial" type="CharacterBody2D" unique_id=1035862160 groups=["darkEnemies"]]
+script = ExtResource("4_rising_sorrow")
 
 [node name="Blood" type="CPUParticles2D" parent="." unique_id=838655759]
 emitting = false
@@ -212,3 +221,45 @@ sprite_frames = SubResource("SpriteFrames_clojm")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -42)
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1564093770]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=2040158511]
+shape = SubResource("CircleShape2D_detection")
+
+[node name="ChargeHitbox" type="Area2D" parent="." unique_id=574032127]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChargeHitbox" unique_id=920400004]
+shape = SubResource("CircleShape2D_charge")
+disabled = true
+
+[node name="BossAudio" type="AudioStreamPlayer2D" parent="." unique_id=1031897664]
+max_distance = 500.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="DeathFade" type="CanvasLayer" parent="." unique_id=2006916441]
+layer = 100
+
+[node name="ColorRect" type="ColorRect" parent="DeathFade" unique_id=1398181559]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1006350822]
+texture_filter = 1
+position = Vector2(0, 24)
+color = Color(1, 0, 0, 1)
+energy = 2.8
+shadow_enabled = true
+shadow_color = Color(0.07843422, 0.02225674, 0.058794856, 0.6627451)
+texture = ExtResource("5_vguob")
+texture_scale = 1.5
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="ChargeHitbox" to="." method="_on_charge_hitbox_body_entered"]

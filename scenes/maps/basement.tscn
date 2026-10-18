@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://dhqj32hwnhgmx" path="res://sprites/tiles/set1.png" id="2_e42id"]
 [ext_resource type="Texture2D" uid="uid://cnfvp2ae6rhcv" path="res://sprites/tiles/deco1.png" id="3_h4ljb"]
 [ext_resource type="AudioStream" uid="uid://da3h4t6wu15ol" path="res://sounds/music/Help.mp3" id="5_tasll"]
+[ext_resource type="PackedScene" uid="uid://dm5bpc23isj3f" path="res://scenes/actors/boss1.tscn" id="7_boss"]
+[ext_resource type="Script" uid="uid://bjaaddnvej1ld" path="res://scripts/UI/boss_health_bar.gd" id="9_boss_hud"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ok4bm"]
 shader = ExtResource("1_d3edt")
@@ -199,6 +201,9 @@ texture_filter = 1
 tile_set = SubResource("TileSet_hm1b4")
 
 [node name="Player" parent="." unique_id=208344737 instance=ExtResource("1_player")]
+position = Vector2(-148, -151)
+light_drain = 0.4
+light_charge = 0.2
 
 [node name="Walls" type="TileMapLayer" parent="." unique_id=2068712828]
 light_mask = 3
@@ -212,10 +217,29 @@ texture_filter = 1
 tile_set = SubResource("TileSet_hm1b4")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1242629104]
-visible = false
 color = Color(0.07464624, 0.033697158, 0.04959926, 1)
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=1379568572]
 stream = ExtResource("5_tasll")
 autoplay = true
 bus = &"Mus"
+
+[node name="Denial" parent="." unique_id=1222748468 instance=ExtResource("7_boss")]
+position = Vector2(148, -44)
+flashlight_damage = 5.0
+charge_damage = 10.0
+charge_duration = 0.4
+recovery_duration = 2.5
+
+[node name="BossHUD" type="CanvasLayer" parent="." unique_id=948061311]
+layer = 10
+
+[node name="BossBar" type="Control" parent="BossHUD" unique_id=1801221686]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("9_boss_hud")

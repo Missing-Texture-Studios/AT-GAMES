@@ -89,7 +89,7 @@ func _pick_up_book() -> void:
 	var book_title := _book_title(book_number)
 	player.addItem(item_id, 1)
 	set_available(false)
-	await _show_dialog("Você pega \"%s\"." % book_title, DialogLine.Presentation.ACTION)
+	await _show_dialog("Mara pega \"%s\"." % book_title, DialogLine.Presentation.ACTION)
 
 
 func _show_book_choice() -> void:
@@ -211,7 +211,7 @@ func _claim_shelf_key() -> void:
 	if was_claimed:
 		await _show_dialog(hint)
 		return
-	await _show_dialog("Você encontra uma chave antiga atrás dos livros.", DialogLine.Presentation.ACTION)
+	await _show_dialog("Mara encontra uma chave antiga atrás dos livros.", DialogLine.Presentation.ACTION)
 	await _show_dialog(hint, DialogLine.Presentation.THOUGHT)
 
 
@@ -220,7 +220,7 @@ func _pick_up_crowbar() -> void:
 		await _show_dialog("Não há mais nada aqui.")
 		return
 	var hint := Level1Puzzle.claim_crowbar(player, self)
-	await _show_dialog("Você pega o pé de cabra.", DialogLine.Presentation.ACTION)
+	await _show_dialog("Mara pega o pé de cabra.", DialogLine.Presentation.ACTION)
 	await _show_dialog(hint, DialogLine.Presentation.THOUGHT)
 
 
@@ -238,8 +238,10 @@ func _use_crowbar() -> void:
 	if crowbar.item_amount <= 0:
 		player.inventory.erase(crowbar)
 
-	await _show_dialog("Com esforço, você afasta as barras e desce ao porão.", DialogLine.Presentation.ACTION)
+	await _show_dialog("Com esforço, Mara afasta as barras e desce ao porão.", DialogLine.Presentation.ACTION)
 	Level1Puzzle.save_player_inventory(player)
+	SaveData.level = "res://scenes/maps/basement.tscn"
+	SaveData.save_progress()
 	get_tree().change_scene_to_file("res://scenes/maps/basement.tscn")
 
 

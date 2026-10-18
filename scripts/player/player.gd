@@ -20,7 +20,8 @@ extends CharacterBody2D
 @onready var light_click: AudioStreamPlayer2D = $LightClick
 @onready var oomph: AudioStreamPlayer2D = $Oomph
 @onready var light_hum: AudioStreamPlayer2D = $LightHum
-
+@export var light_drain = 0.5
+@export var light_charge = 0.1
 var is_dead := false
 
 @export_category("Start Dialog")
@@ -195,13 +196,13 @@ func _process(_delta: float) -> void:
 		flashlight.enabled = true
 		if !light_hum.playing: light_hum.play()
 		light_collision.disabled = false
-		flashlight_battery -= 0.5
+		flashlight_battery -= light_drain
 	else:
 		flashlight.visible = false
 		flashlight.enabled = false
 		light_hum.stop()
 		light_collision.disabled = true
-		if flashlight_battery < 100.0: flashlight_battery += 0.1
+		if flashlight_battery < 100.0: flashlight_battery += light_charge
 
 	light_bar.value = flashlight_battery
 

@@ -67,6 +67,15 @@ func _physics_process(_delta: float) -> void:
 
 	var distance = global_position.distance_to(player.global_position + Vector2(0,40))
 	var direction = global_position.direction_to(player.global_position + Vector2(0,40))
+	if not _has_line_of_sight(player.global_position + Vector2(0, 40)):
+		if state != STATES.IDLE:
+			state = STATES.IDLE
+			_handle_state_change()
+		_previous_state = state
+		player_inside_hitbox = false
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
 
 	if direction.x > 0:
 		animated_sprite.flip_h = true
@@ -137,7 +146,7 @@ func _on_animated_sprite_frame_changed() -> void:
 
 # Sinais do Hitbox
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if body == player:
+	if body == player and _has_line_of_sight(player.global_position + Vector2(0, 40)):
 		player_inside_hitbox = true
 
 func _on_hitbox_body_exited(body: Node2D) -> void:
@@ -203,3 +212,10 @@ func _on_idle_growl_timer_timeout() -> void:
 		return
 	_play_random_sound(growl_audio, GROWL_SOUNDS)
 	idle_growl_timer.start(randf_range(4.0, 9.0))
+
+func _has_line_of_sight(target_point: Vector2) -> bool:
+	var query := PhysicsRayQueryParameters2D.create(global_position, target_point)
+	query.collision_mask = 1
+	query.exclude = [get_rid()]
+	var hit := get_world_2d().direct_space_state.intersect_ray(query)
+	return hit.is_empty() or hit.get("collider") == player

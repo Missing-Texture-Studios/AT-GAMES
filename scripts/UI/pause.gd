@@ -28,7 +28,7 @@ func _on_options_button_up() -> void:
 		opts_open = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		pause_toggle()
 

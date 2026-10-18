@@ -1,19 +1,67 @@
 [gd_scene format=3 uid="uid://6sl2i6vg54q4"]
 
-[ext_resource type="Script" uid="uid://b5q8lfvmnl0qx" path="res://enemy_projectile.gd" id="1_3wtia"]
-[ext_resource type="Texture2D" uid="uid://1qw8805yf5cg" path="res://sprites/enemies/placeholder/bulletplacheholder.png" id="2_8fodj"]
+[ext_resource type="Script" uid="uid://b5q8lfvmnl0qx" path="res://scripts/enemies/enemy_projectile.gd" id="1_3wtia"]
+[ext_resource type="Texture2D" uid="uid://btk7bspqdw726" path="res://sprites/enemies/shooter/projectile.png" id="2_vk8vx"]
+[ext_resource type="Texture2D" uid="uid://cdnv8u4vngoug" path="res://sprites/FX/lightCookie.png" id="3_2kdjb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kdjb"]
+atlas = ExtResource("2_vk8vx")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8vfc"]
+atlas = ExtResource("2_vk8vx")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ats47"]
+atlas = ExtResource("2_vk8vx")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8b4d"]
+atlas = ExtResource("2_vk8vx")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ado5q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2kdjb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8vfc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ats47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8b4d")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8fodj"]
 radius = 5.0990195
 
-[node name="EnemyProjectile" type="Area2D" unique_id=681375592]
+[node name="EnemyProjectile" type="Area2D" unique_id=681375592 collision_layer=0 collision_mask=1]
 script = ExtResource("1_3wtia")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1624743284]
-texture = ExtResource("2_8fodj")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1748658304]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ado5q")
+autoplay = "default"
+frame_progress = 0.5060294
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=193147343]
 shape = SubResource("CircleShape2D_8fodj")
 
 [node name="Lifetime" type="Timer" parent="." unique_id=918273062]
 wait_time = 5.0
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1965342170]
+texture_filter = 1
+energy = 0.35
+shadow_enabled = true
+shadow_color = Color(0.07843422, 0.02225674, 0.058794856, 0.6627451)
+texture = ExtResource("3_2kdjb")
+texture_scale = 0.5

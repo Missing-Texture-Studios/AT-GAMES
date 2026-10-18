@@ -108,7 +108,7 @@ func open(new_dialog: Array[DialogLine], source: Node = null) -> void:
 
 
 func _show_dialog(line: DialogLine) -> void:
-	dialog_name.text = line.dialog_name if not line.dialog_name.is_empty() else "Você"
+	dialog_name.text = line.dialog_name if not line.dialog_name.is_empty() else "Mara"
 	dialog_text.text = _format_dialog_text(line)
 	_fit_dialog_text()
 	_clear_response_options()

@@ -10,6 +10,7 @@ var pantry_unlocked: bool = false
 var pantry_examined: bool = false
 var bookshelf_examined: bool = false
 var barred_door_examined: bool = false
+var boss_defeated: bool = false
 var inventory_snapshot: Array[InvItem] = []
 var restore_inventory_pending: bool = false
 
@@ -20,6 +21,23 @@ func _ready() -> void:
 	get_tree().scene_changed.connect(_on_scene_changed)
 
 
+func reset_progress() -> void:
+	book_order = [1, 2, 3]
+	book_order.shuffle()
+	book_progress = 0
+	diary_collected = false
+	puzzle_solved = false
+	key_claimed = false
+	crowbar_collected = false
+	pantry_unlocked = false
+	pantry_examined = false
+	bookshelf_examined = false
+	barred_door_examined = false
+	boss_defeated = false
+	inventory_snapshot.clear()
+	restore_inventory_pending = false
+
+
 func save_player_inventory(player: Node) -> void:
 	inventory_snapshot.clear()
 	for item: InvItem in player.inventory:
@@ -27,7 +45,7 @@ func save_player_inventory(player: Node) -> void:
 	restore_inventory_pending = true
 
 
-func _on_scene_changed(_scene_root: Node) -> void:
+func _on_scene_changed() -> void:
 	call_deferred("_restore_player_inventory")
 
 
@@ -45,6 +63,10 @@ func _restore_player_inventory() -> void:
 
 func unlock_pantry() -> void:
 	pantry_unlocked = true
+
+
+func mark_boss_defeated() -> void:
+	boss_defeated = true
 
 
 func note_pantry_interaction() -> void:
@@ -79,7 +101,7 @@ func choose_book(player: Node, book_number: int) -> Dictionary:
 	var book_item_id := 4 + book_number
 	var book_item := _find_item(player, book_item_id)
 	if book_item == null:
-		return {"correct": false, "message": "Você não está carregando esse volume."}
+		return {"correct": false, "message": "Mara não está carregando esse volume."}
 
 	if book_number != book_order[book_progress]:
 		return {"correct": false, "message": "Esse não é o próximo livro da sequência. A estante continua à espera."}
@@ -111,7 +133,7 @@ func claim_key(player: Node) -> String:
 
 func claim_crowbar(player: Node, crowbar: Node) -> String:
 	if crowbar_collected:
-		return "Você já pegou o pé de cabra."
+		return "Mara já pegou o pé de cabra."
 
 	crowbar_collected = true
 	player.addItem(3, 1)

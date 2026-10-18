@@ -13,7 +13,7 @@ func _ready() -> void:
 	call_deferred("_configure_current_scene")
 
 
-func _on_scene_changed(_scene_root: Node) -> void:
+func _on_scene_changed() -> void:
 	call_deferred("_configure_current_scene")
 
 

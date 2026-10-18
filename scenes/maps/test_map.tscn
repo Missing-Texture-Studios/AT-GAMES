@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://756q1we4m7p0" path="res://scripts/objects/dialog_action.gd" id="6_7iodv"]
 [ext_resource type="Script" uid="uid://l80rkg5kol2g" path="res://scripts/objects/dialog_response.gd" id="6_ibx7c"]
 [ext_resource type="Texture2D" uid="uid://vowklex2vbej" path="res://sprites/objects/coin.png" id="7_pjele"]
-[ext_resource type="PackedScene" uid="uid://d20e1uf86vm13" path="res://scenes/actors/slime.tscn" id="9_7iodv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_00m6f"]
 texture = ExtResource("2_7iodv")
@@ -184,8 +183,5 @@ scale = Vector2(1.1184977, 1.0430232)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1813564898]
 color = Color(0.23139414, 0.14247066, 0.1778211, 1)
-
-[node name="Slime" parent="." unique_id=79141559 instance=ExtResource("9_7iodv")]
-position = Vector2(214, -2)
 
 [editable path="Coin"]
