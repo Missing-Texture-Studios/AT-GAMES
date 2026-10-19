@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bwn3ovohj2w32"]
+
+[ext_resource type="Script" uid="uid://d2d2tlfl2kkd7" path="res://scripts/enemies/enemy_burp_projectile.gd" id="1_sxn58"]
+[ext_resource type="Texture2D" uid="uid://1qw8805yf5cg" path="res://sprites/enemies/placeholder/bulletplacheholder.png" id="2_ehsrw"]
+[ext_resource type="Texture2D" uid="uid://cdnv8u4vngoug" path="res://sprites/FX/lightCookie.png" id="3_3lmju"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xadyu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ehsrw")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8fodj"]
+radius = 5.0990195
+
+[node name="EnemyBurpProjectile" type="Area2D" unique_id=681375592]
+script = ExtResource("1_sxn58")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1748658304]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_xadyu")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=193147343]
+shape = SubResource("CircleShape2D_8fodj")
+
+[node name="Lifetime" type="Timer" parent="." unique_id=918273062]
+wait_time = 5.0
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1965342170]
+texture_filter = 1
+energy = 0.35
+shadow_enabled = true
+shadow_color = Color(0.07843422, 0.02225674, 0.058794856, 0.6627451)
+texture = ExtResource("3_3lmju")
+texture_scale = 0.5
+
+[node name="Slowdown" type="Timer" parent="." unique_id=1050069254]
+wait_time = 0.1

@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://d0qjb1rjqrrew"]
+
+[ext_resource type="Script" uid="uid://b24r68m4ce3vk" path="res://burping_enemy.gd" id="1_30d5k"]
+[ext_resource type="Texture2D" uid="uid://b1o0hs7bd3p06" path="res://sprites/enemies/placeholder/placheholder.png" id="2_owqa0"]
+[ext_resource type="AudioStream" uid="uid://cbdqfkk7hlywb" path="res://sounds/slime/screech.wav" id="4_hsvxp"]
+[ext_resource type="Texture2D" uid="uid://cdnv8u4vngoug" path="res://sprites/FX/lightCookie.png" id="5_xnx8r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k13lb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_owqa0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_owqa0")
+}],
+"loop": 1,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_owqa0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_owqa0")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g7ubf"]
+radius = 11.0
+height = 22.0
+
+[node name="burping_Enemy" type="CharacterBody2D" unique_id=1551316833]
+script = ExtResource("1_30d5k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1525454047]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_k13lb")
+animation = &"shoot"
+autoplay = "move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=499612154]
+shape = SubResource("CapsuleShape2D_g7ubf")
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=990368469]
+wait_time = 7.0
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=609227152]
+
+[node name="ScreechAudio" type="AudioStreamPlayer2D" parent="." unique_id=1051762881]
+stream = ExtResource("4_hsvxp")
+max_distance = 500.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="ShootAudio" type="AudioStreamPlayer2D" parent="." unique_id=1770308984]
+max_distance = 500.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1246731522]
+texture_filter = 1
+energy = 0.35
+shadow_enabled = true
+shadow_color = Color(0.07843422, 0.02225674, 0.058794856, 0.6627451)
+texture = ExtResource("5_xnx8r")
+texture_scale = 0.5
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

@@ -15,6 +15,8 @@ func _ready() -> void:
 	lifetime.timeout.connect(queue_free)
 	lifetime.start()
 	
+
+	
 func _physics_process(delta: float) -> void:
 	global_position += direction * speed * delta
 	
@@ -28,3 +30,4 @@ func _on_body_entered(body: Node2D) -> void:
 	elif "health" in body:
 		body.health -= damage
 	queue_free()
+	
