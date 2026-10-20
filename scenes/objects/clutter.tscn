@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://djj5yt8s4ftyp"]
+
+[ext_resource type="Script" uid="uid://4iuufic1k6us" path="res://scripts/objects/clutter.gd" id="1_mfd7i"]
+[ext_resource type="Texture2D" uid="uid://bki4y4nnon2ry" path="res://sprites/objects/placeholderEntity.png" id="2_5on86"]
+[ext_resource type="Texture2D" uid="uid://1qw8805yf5cg" path="res://sprites/enemies/placeholder/bulletplacheholder.png" id="3_xhooo"]
+[ext_resource type="AudioStream" uid="uid://btgbdf1wpli7n" path="res://sounds/generic/explosion.wav" id="4_5on86"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kgh6r"]
+
+[sub_resource type="Curve" id="Curve_l8bk6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_kgh6r"]
+offsets = PackedFloat32Array(0, 0.5617284)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Clutter" type="StaticBody2D" unique_id=128083591]
+script = ExtResource("1_mfd7i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1007515498]
+shape = SubResource("CircleShape2D_kgh6r")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1310210726]
+texture_filter = 1
+texture = ExtResource("2_5on86")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1247924964]
+texture_filter = 1
+emitting = false
+amount = 16
+texture = ExtResource("3_xhooo")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 100)
+initial_velocity_max = 148.51
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_curve = SubResource("Curve_l8bk6")
+color_ramp = SubResource("Gradient_kgh6r")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=798606584]
+stream = ExtResource("4_5on86")
+volume_db = -3.888
+panning_strength = 3.0

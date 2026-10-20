@@ -134,6 +134,7 @@ func _play_animation(animation_name: String) -> void:
 		animated_sprite.play(animation_name)
 
 func _on_shoot_timer_timeout() -> void:
+	if !player.can_move: return
 	if state == STATES.IDLE or state == STATES.STALKING or not is_instance_valid(player):
 		return
 	var target_point := _get_player_aim_point()
