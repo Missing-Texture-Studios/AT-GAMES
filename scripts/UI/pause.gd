@@ -46,3 +46,7 @@ func _on_quit_button_up() -> void:
 	await fade_anim.animation_finished
 	get_tree().paused = false
 	Loading.load_scene("res://scenes/UI/menu.tscn")
+
+
+func _on_resume_button_up() -> void:
+	pause_toggle()

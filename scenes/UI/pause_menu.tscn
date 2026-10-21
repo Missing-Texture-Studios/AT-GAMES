@@ -423,5 +423,6 @@ color = Color(0, 0, 0, 1)
 [node name="fadeAnim" type="AnimationPlayer" parent="Panel/Fade" unique_id=774769685]
 libraries/ = SubResource("AnimationLibrary_feba6")
 
+[connection signal="button_up" from="Panel/Resume" to="." method="_on_resume_button_up"]
 [connection signal="button_up" from="Panel/Options" to="." method="_on_options_button_up"]
 [connection signal="button_up" from="Panel/Quit" to="." method="_on_quit_button_up"]

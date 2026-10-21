@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d0qjb1rjqrrew"]
 
-[ext_resource type="Script" uid="uid://b24r68m4ce3vk" path="res://burping_enemy.gd" id="1_30d5k"]
+[ext_resource type="Script" uid="uid://b24r68m4ce3vk" path="res://scripts/enemies/burping_enemy.gd" id="1_30d5k"]
 [ext_resource type="Texture2D" uid="uid://b1o0hs7bd3p06" path="res://sprites/enemies/placeholder/placheholder.png" id="2_owqa0"]
 [ext_resource type="AudioStream" uid="uid://cbdqfkk7hlywb" path="res://sounds/slime/screech.wav" id="4_hsvxp"]
 [ext_resource type="Texture2D" uid="uid://cdnv8u4vngoug" path="res://sprites/FX/lightCookie.png" id="5_xnx8r"]

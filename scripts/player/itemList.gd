@@ -35,5 +35,10 @@ var items = [
 		"ID" = 7,
 		"Name" = "Livro III: A Última Chave",
 		"Icon" = "res://sprites/objects/book.png"
+	},
+	{
+		"ID" = 8,
+		"Name" = "Passagem de Metrô",
+		"Icon" = "res://sprites/objects/ticket.png"
 	}
 ]

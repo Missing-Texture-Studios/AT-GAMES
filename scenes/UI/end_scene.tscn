@@ -1,0 +1,252 @@
+[gd_scene format=3 uid="uid://c6v8x5woposmg"]
+
+[ext_resource type="Texture2D" uid="uid://billmge7tbw8g" path="res://sprites/UI/HospitalEnd.png" id="1_g76mw"]
+[ext_resource type="Script" uid="uid://c8hqqdy0ulkkt" path="res://scenes/UI/end_scene.gd" id="1_rgray"]
+[ext_resource type="Shader" uid="uid://dnofi80vnucdx" path="res://scripts/UI/blur.gdshader" id="2_rgray"]
+[ext_resource type="Shader" uid="uid://dsps14wa0va04" path="res://scripts/UI/wiggle.gdshader" id="3_wqkjw"]
+[ext_resource type="Texture2D" uid="uid://bf7pspphqprg7" path="res://sprites/UI/HospitalEndOverlay.png" id="4_qjh7x"]
+[ext_resource type="FontFile" uid="uid://db5282d4yqiam" path="res://fonts/TINY5-REGULAR.TTF" id="5_utxf2"]
+[ext_resource type="Shader" uid="uid://m76q0f4ww1mp" path="res://scripts/UI/bloom.gdshader" id="6_yj0hm"]
+[ext_resource type="Texture2D" uid="uid://b8gw2xqkc1nn3" path="res://sprites/UI/title.png" id="7_r6dhh"]
+[ext_resource type="AudioStream" uid="uid://c8h6sfxk7lkba" path="res://sounds/UI/Ending.wav" id="8_paykh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4csns"]
+shader = ExtResource("2_rgray")
+shader_parameter/blur_lod = 3.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ado5q"]
+shader = ExtResource("3_wqkjw")
+shader_parameter/strength = 50.0
+shader_parameter/speed = 20.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ohelv"]
+shader = ExtResource("6_yj0hm")
+shader_parameter/bloom_tint = Color(1, 0.6313726, 1, 1)
+shader_parameter/bloom_strength = 1.1650000553375
+shader_parameter/bloom_threshold = 0.5250000249375
+shader_parameter/bloom_radius = 0.0
+shader_parameter/glow_intensity = 1.190000056525
+shader_parameter/alpha_expansion = 1.0
+shader_parameter/use_alpha = true
+
+[sub_resource type="Animation" id="Animation_gw51i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D/CanvasLayer/Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D/CanvasLayer/Control/ColorRect2:material:shader_parameter/blur_lod")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D/CanvasLayer/Control/Credits2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 623)]
+}
+
+[sub_resource type="Animation" id="Animation_okmhl"]
+resource_name = "end_scene"
+length = 50.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D/CanvasLayer/Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5666667, 10, 10.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D/CanvasLayer/Control/ColorRect2:material:shader_parameter/blur_lod")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5333337, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.5, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D/CanvasLayer/Control/Credits2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(14, 50),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 623), Vector2(0, -1712)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(49.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"menu"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hc5b1"]
+_data = {
+&"RESET": SubResource("Animation_gw51i"),
+&"end_scene": SubResource("Animation_okmhl")
+}
+
+[node name="EndScene" type="Node2D" unique_id=1384565274]
+script = ExtResource("1_rgray")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=643973154]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=1914178804]
+
+[node name="Control" type="Control" parent="Camera2D/CanvasLayer" unique_id=1201604763]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/CanvasLayer/Control" unique_id=2139295957]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_g76mw")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ColorRect2" type="ColorRect" parent="Camera2D/CanvasLayer/Control" unique_id=915995853]
+material = SubResource("ShaderMaterial_4csns")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="TextureRect2" type="TextureRect" parent="Camera2D/CanvasLayer/Control" unique_id=1152891123]
+material = SubResource("ShaderMaterial_ado5q")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_qjh7x")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control" unique_id=1175538634]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Credits2" type="Control" parent="Camera2D/CanvasLayer/Control" unique_id=318581885]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 623.0
+offset_bottom = 1668.9912
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Credits" type="Label" parent="Camera2D/CanvasLayer/Control/Credits2" unique_id=158793189]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 571.0
+offset_right = 1139.0
+offset_bottom = 1594.0
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("5_utxf2")
+theme_override_font_sizes/font_size = 48
+text = "Alex Chen Marubayashi - Programação
+
+Ítalo Santos de Morais - Level Design
+
+Kenny Koixun Navarrete Yang - Arte
+
+Lucas Rezende Rino - Marketing/Financeiro
+
+Pedro Henrique Tourino Marconi - Arte, Level Design e História
+
+Roberto de Andrade Paiva Filho - Programação, Arte, Sons, Música, UI/UX
+
+Tales Oliveira Campos - Marketing/Financeiro
+
+Vinícius Ettore Almeida Souza - História
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Title" type="TextureRect" parent="Camera2D/CanvasLayer/Control/Credits2" unique_id=572749563]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ohelv")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -296.0
+offset_top = -685.0
+offset_right = 296.0
+offset_bottom = -389.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("7_r6dhh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1155685]
+libraries/ = SubResource("AnimationLibrary_hc5b1")
+autoplay = &"end_scene"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2025294806]
+stream = ExtResource("8_paykh")
+autoplay = true
+bus = &"SFX"

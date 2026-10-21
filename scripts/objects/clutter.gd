@@ -9,6 +9,7 @@ func destroy():
 	$AudioStreamPlayer2D.pitch_scale = randf_range(0.6,1.2)
 	$AudioStreamPlayer2D.play()
 	$CPUParticles2D.emitting = true
+	$Sprite2D.visible = false
 	await $CPUParticles2D.finished
 	queue_free()
 

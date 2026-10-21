@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cnfvp2ae6rhcv" path="res://sprites/tiles/deco1.png" id="3_h4ljb"]
 [ext_resource type="AudioStream" uid="uid://da3h4t6wu15ol" path="res://sounds/music/Help.mp3" id="5_tasll"]
 [ext_resource type="PackedScene" uid="uid://dm5bpc23isj3f" path="res://scenes/actors/boss1.tscn" id="7_boss"]
-[ext_resource type="Script" uid="uid://bjaaddnvej1ld" path="res://scripts/UI/boss_health_bar.gd" id="9_boss_hud"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ok4bm"]
 shader = ExtResource("1_d3edt")
@@ -230,16 +229,3 @@ flashlight_damage = 5.0
 charge_damage = 10.0
 charge_duration = 0.4
 recovery_duration = 2.5
-
-[node name="BossHUD" type="CanvasLayer" parent="." unique_id=948061311]
-layer = 10
-
-[node name="BossBar" type="Control" parent="BossHUD" unique_id=1801221686]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("9_boss_hud")

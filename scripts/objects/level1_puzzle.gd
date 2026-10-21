@@ -76,12 +76,12 @@ func note_pantry_interaction() -> void:
 func bookshelf_hint() -> String:
 	bookshelf_examined = true
 	if puzzle_solved:
-		return "A estante está destrancada. Há um compartimento atrás dos livros."
+		return "A estante se move com um clique seco. Há uma chave escondida atrás dos livros, como se Mara tivesse planejado isso antes mesmo de acordar."
 	if diary_collected:
-		return "A anotação do diário talvez indique a ordem destes livros. Qual volume deseja colocar?"
+		return "O diário menciona uma ordem de livros e a chave escondida atrás da estante. Mara começa a achar que não foi só memória. Qual volume encaixa agora?"
 	if pantry_examined:
-		return "Há marcas de uso nos livros. Talvez a ordem deles revele algo útil para a despensa."
-	return "Três livros têm marcas de uso. Talvez exista uma ordem para colocá-los."
+		return "Os livros da estante parecem estar em desordem por causa de alguém. Talvez a ordem deles tenha a ver com a chave da despensa."
+	return "Há marcas nos livros, como se alguém tivesse tentado deixar uma pista. Talvez a ordem deles signifique alguma coisa."
 
 
 func read_diary(player: Node, diary: Node) -> String:
@@ -90,21 +90,21 @@ func read_diary(player: Node, diary: Node) -> String:
 		player.addItem(2, 1)
 		diary.set_available(false)
 	if pantry_examined:
-		return "No diário, uma anotação quase apagada lista os volumes: %s." % _format_order()
-	return "No diário, uma anotação quase apagada menciona uma sequência de volumes: %s." % _format_order()
+		return "No diário, a caligrafia de Mara está quase apagada: 'Se o porão me assustar, siga os livros. A chave da despensa tá escondida atrás da estante e a ordem tem de estar certa.'"
+	return "No diário, uma anotação quase apagada diz: 'Se eu esquecer, os livros vão lembrar por mim. A chave da despensa fica atrás da estante; a ordem importa.'"
 
 
 func choose_book(player: Node, book_number: int) -> Dictionary:
 	if puzzle_solved:
-		return {"correct": false, "message": "Os livros já estão na ordem certa."}
+		return {"correct": false, "message": "Os livros já estão na ordem certa. A chave está no compartimento escondido da estante."}
 
 	var book_item_id := 4 + book_number
 	var book_item := _find_item(player, book_item_id)
 	if book_item == null:
-		return {"correct": false, "message": "Mara não está carregando esse volume."}
+		return {"correct": false, "message": "Mara não está carregando esse volume agora. Ela se apressa e só o vê perdido no meio da bagunça."}
 
 	if book_number != book_order[book_progress]:
-		return {"correct": false, "message": "Esse não é o próximo livro da sequência. A estante continua à espera."}
+		return {"correct": false, "message": "Esse não é o próximo livro. O relógio da manhã parece bater mais forte e a ordem continua confusa."}
 
 	book_item.item_amount -= 1
 	if book_item.item_amount <= 0:
@@ -112,23 +112,26 @@ func choose_book(player: Node, book_number: int) -> Dictionary:
 	book_progress += 1
 	if book_progress == book_order.size():
 		puzzle_solved = true
-		return {"correct": true, "message": "O último livro se encaixa. Um compartimento se abre atrás da estante."}
+		if not key_claimed:
+			key_claimed = true
+			player.addItem(4, 1)
+		return {"correct": true, "message": "O último livro encaixa com um clique seco. Um compartimento se abre na estante e uma chave antiga cai em suas mãos."}
 
-	return {"correct": true, "message": "O livro se encaixa. Falta encontrar o próximo da sequência."}
+	return {"correct": true, "message": "O livro entra no lugar. Mara tenta lembrar a ordem correta antes que o relógio a deixe mais atrasada."}
 
 
 func claim_key(player: Node) -> String:
 	if not puzzle_solved:
-		return "A estante não se move. Os livros ainda parecem fora de ordem."
+		return "A estante não se move. Os livros continuam fora de ordem e Mara não tem tempo para isso."
 
 	if key_claimed:
-		return "O compartimento atrás dos livros está vazio."
+		return "A chave já está em mãos. O compartimento da estante ficou vazio." 
 
 	key_claimed = true
 	player.addItem(4, 1)
 	if pantry_examined:
-		return "Talvez esta chave abra a porta da despensa."
-	return "Onde será que esta chave se encaixa?"
+		return "A chave da despensa. Finalmente, ela tem o que precisava para abrir a porta da cozinha."
+	return "A chave da despensa. Mara sente que a resposta estava na estante o tempo todo."
 
 
 func claim_crowbar(player: Node, crowbar: Node) -> String:

@@ -8,7 +8,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_kgh6r"]
 
 [sub_resource type="Curve" id="Curve_l8bk6"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_kgh6r"]
@@ -28,7 +29,7 @@ texture = ExtResource("2_5on86")
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1247924964]
 texture_filter = 1
 emitting = false
-amount = 16
+amount = 24
 texture = ExtResource("3_xhooo")
 lifetime = 0.5
 one_shot = true
@@ -36,7 +37,7 @@ explosiveness = 1.0
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 100)
-initial_velocity_max = 148.51
+initial_velocity_max = 346.93
 angular_velocity_min = -720.0
 angular_velocity_max = 720.0
 angle_min = -720.0

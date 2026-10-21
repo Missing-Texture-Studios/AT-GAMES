@@ -755,6 +755,7 @@ libraries/ = SubResource("AnimationLibrary_afsss")
 
 [node name="PauseMenu" parent="Camera2D/CanvasLayer/UI" unique_id=173468364 instance=ExtResource("5_7860b")]
 visible = false
+z_index = 6
 layout_mode = 1
 
 [node name="InteractLabel" type="Label" parent="." unique_id=263063453]

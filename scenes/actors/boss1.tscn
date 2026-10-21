@@ -3,7 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://do1dms47glk7k" path="res://sprites/FX/blood.png" id="1_oap31"]
 [ext_resource type="Shader" uid="uid://dsps14wa0va04" path="res://scripts/UI/wiggle.gdshader" id="2_kolhk"]
 [ext_resource type="Texture2D" uid="uid://c8gfs41va4bcd" path="res://sprites/player/player.png" id="3_vguob"]
-[ext_resource type="Script" uid="uid://w88n8firelbs" path="res://scripts/enemies/rising_sorrow.gd" id="4_rising_sorrow"]
+[ext_resource type="Script" uid="uid://w88n8firelbs" path="res://scripts/enemies/denial.gd" id="4_rising_sorrow"]
+[ext_resource type="FontFile" uid="uid://db5282d4yqiam" path="res://fonts/TINY5-REGULAR.TTF" id="5_17yq2"]
 [ext_resource type="Texture2D" uid="uid://cdnv8u4vngoug" path="res://sprites/FX/lightCookie.png" id="5_vguob"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_17yq2"]
@@ -187,6 +188,27 @@ radius = 320.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_charge"]
 radius = 11.045361
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_clojm"]
+shader = ExtResource("2_kolhk")
+shader_parameter/strength = 5.0
+shader_parameter/speed = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bf4rn"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xld51"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4csns"]
+shader = ExtResource("2_kolhk")
+shader_parameter/strength = 1.5
+shader_parameter/speed = 8.0
+
 [node name="Denial" type="CharacterBody2D" unique_id=1035862160 groups=["darkEnemies"]]
 script = ExtResource("4_rising_sorrow")
 
@@ -240,6 +262,55 @@ bus = &"SFX"
 
 [node name="DeathFade" type="CanvasLayer" parent="." unique_id=2006916441]
 layer = 100
+
+[node name="Control" type="Control" parent="DeathFade" unique_id=1903535250]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Health Label" type="Label" parent="DeathFade/Control" unique_id=1617311887]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 576.0
+offset_right = 196.0
+offset_bottom = 630.0
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("5_17yq2")
+theme_override_font_sizes/font_size = 48
+text = "Negação"
+vertical_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="DeathFade/Control" unique_id=960132915]
+material = SubResource("ShaderMaterial_clojm")
+layout_mode = 0
+offset_left = 196.0
+offset_top = 592.0
+offset_right = 1135.0
+offset_bottom = 619.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bf4rn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xld51")
+step = 0.1
+value = 50.0
+show_percentage = false
+
+[node name="ColorRect" type="ColorRect" parent="DeathFade/Control" unique_id=1660883093]
+material = SubResource("ShaderMaterial_4csns")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 87.0
+offset_top = -73.0
+offset_right = 95.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(1, 1, 0.5686275, 1)
 
 [node name="ColorRect" type="ColorRect" parent="DeathFade" unique_id=1398181559]
 anchors_preset = 15

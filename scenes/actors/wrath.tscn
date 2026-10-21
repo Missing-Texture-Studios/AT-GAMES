@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b3uy5u6j5b8hk" path="res://scripts/enemies/wrath.gd" id="1_odjnl"]
 [ext_resource type="Texture2D" uid="uid://cwcckw8kn5phf" path="res://sprites/enemies/wrath/Wrath.png" id="2_3o5x7"]
 [ext_resource type="Texture2D" uid="uid://cdnv8u4vngoug" path="res://sprites/FX/lightCookie.png" id="2_4q217"]
+[ext_resource type="AudioStream" uid="uid://dwlck6vdky2gq" path="res://sounds/wrath/wrath_noises.wav" id="4_4q217"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4q217"]
 atlas = ExtResource("2_3o5x7")
@@ -177,9 +178,9 @@ animations = [{
 size = Vector2(14, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ahurm"]
-size = Vector2(106, 124)
+size = Vector2(157, 176)
 
-[node name="Wrath" type="StaticBody2D" unique_id=468885733]
+[node name="Wrath" type="RigidBody2D" unique_id=838310625]
 script = ExtResource("1_odjnl")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1499732080]
@@ -189,9 +190,11 @@ energy = 1.45
 shadow_enabled = true
 shadow_color = Color(0.07843422, 0.02225674, 0.058794856, 0.6627451)
 texture = ExtResource("2_4q217")
+texture_scale = 2.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1461231848]
 texture_filter = 1
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_kgh6r")
 autoplay = "default"
 frame_progress = 0.6405484
@@ -202,6 +205,12 @@ shape = SubResource("RectangleShape2D_kgh6r")
 [node name="Area2D" type="Area2D" parent="." unique_id=1131052921]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1522566542]
+position = Vector2(-16.5, 0)
 shape = SubResource("RectangleShape2D_ahurm")
+
+[node name="Noise" type="AudioStreamPlayer2D" parent="." unique_id=1811048690]
+stream = ExtResource("4_4q217")
+autoplay = true
+panning_strength = 3.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

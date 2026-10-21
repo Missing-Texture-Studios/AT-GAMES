@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dxuufa5cqd0pw" path="res://scripts/UI/splash.gd" id="1_iionh"]
 [ext_resource type="Texture2D" uid="uid://vng17cd8ljff" path="res://sprites/UI/logoFull.png" id="2_ehvkk"]
 [ext_resource type="Shader" uid="uid://cntw0a4n6v6gy" path="res://scripts/UI/burn.gdshader" id="3_7ohc2"]
+[ext_resource type="FontFile" uid="uid://db5282d4yqiam" path="res://fonts/TINY5-REGULAR.TTF" id="3_ehvkk"]
 [ext_resource type="AudioStream" uid="uid://c1q3jehsuw8jh" path="res://sounds/player/flashlightClick.wav" id="4_imbhp"]
 [ext_resource type="AudioStream" uid="uid://sxc8n66iy4by" path="res://sounds/UI/whoosh.wav" id="5_ecb7x"]
 
@@ -71,10 +72,22 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(0.06469653, 0.06469653, 0.06469653, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Warning:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 571)]
+}
 
 [sub_resource type="Animation" id="Animation_xkogi"]
 resource_name = "splash"
-length = 5.0
+length = 10.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -82,7 +95,7 @@ tracks/0/path = NodePath("../Sprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(5, 6),
 "transitions": PackedFloat32Array(0.11662919, 1),
 "update": 0,
 "values": [Vector2(576, 839), Vector2(576, 324)]
@@ -94,7 +107,7 @@ tracks/1/path = NodePath("../ColorRect3:material:shader_parameter/radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1, 5),
+"times": PackedFloat32Array(6, 10),
 "transitions": PackedFloat32Array(2.9281712, 1),
 "update": 0,
 "values": [1.045, -0.18]
@@ -115,7 +128,7 @@ tracks/2/keys = {
 "start_offset": 0.0,
 "stream": ExtResource("5_ecb7x")
 }],
-"times": PackedFloat32Array(0.6666667, 2.4666667)
+"times": PackedFloat32Array(5.666667, 7.4666667)
 }
 tracks/2/use_blend = true
 tracks/3/type = "value"
@@ -125,7 +138,7 @@ tracks/3/path = NodePath("../Sprite2D:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.8329189, 1),
+"times": PackedFloat32Array(5, 5.832919, 6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(0.06469653, 0.06469653, 0.06469653, 1), Color(0.06469653, 0.06469653, 0.06469653, 1), Color(1, 1, 1, 1)]
@@ -137,12 +150,24 @@ tracks/4/path = NodePath("..")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(5),
+"times": PackedFloat32Array(10),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"menu"
 }]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Warning:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1, 4, 5),
+"transitions": PackedFloat32Array(0.29730177, 1, 0.18301074, 1),
+"update": 0,
+"values": [Vector2(10, 571), Vector2(10, -193), Vector2(10, -193), Vector2(10, 719)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rilgg"]
@@ -174,6 +199,22 @@ modulate = Color(0.06469653, 0.06469653, 0.06469653, 1)
 position = Vector2(576, 839)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ehvkk")
+
+[node name="Warning" type="Label" parent="." unique_id=183608268]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 571.0
+offset_right = 1139.0
+offset_bottom = 1593.9995
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("3_ehvkk")
+theme_override_font_sizes/font_size = 48
+text = "AVISO
+
+Esse jogo contém sons altos, luzes piscantes, efeitos visuais desorientadores e temas assustadores. Não é recomendado para indíviduos com fotosenssibilidade ou outras condições visuais."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="ColorRect3" type="ColorRect" parent="." unique_id=343057399]
 material = SubResource("ShaderMaterial_twvh4")

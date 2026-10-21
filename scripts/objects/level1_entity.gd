@@ -96,7 +96,7 @@ func _show_book_choice() -> void:
 	# Sem nenhum livro no inventário: filler, sem opções.
 	if not _has_any_book():
 		await _show_dialog(
-			"Oh, parece que faltam alguns livros aqui...",
+			"Os livros espalhados pela casa parecem gritar alguma ordem, mas ainda não faz sentido para Mara.",
 			DialogLine.Presentation.THOUGHT
 		)
 		return
@@ -209,18 +209,18 @@ func _claim_shelf_key() -> void:
 	var was_claimed := Level1Puzzle.key_claimed
 	var hint := Level1Puzzle.claim_key(player)
 	if was_claimed:
-		await _show_dialog(hint)
+		await _show_dialog(hint, DialogLine.Presentation.THOUGHT)
 		return
-	await _show_dialog("Mara encontra uma chave antiga atrás dos livros.", DialogLine.Presentation.ACTION)
+	await _show_dialog("Mara pega a chave antiga que estava escondida atrás dos livros.", DialogLine.Presentation.ACTION)
 	await _show_dialog(hint, DialogLine.Presentation.THOUGHT)
 
 
 func _pick_up_crowbar() -> void:
 	if Level1Puzzle.crowbar_collected:
-		await _show_dialog("Não há mais nada aqui.")
+		await _show_dialog("Não há mais nada ali além do pó e da lembrança de uma cozinha vazia.")
 		return
 	var hint := Level1Puzzle.claim_crowbar(player, self)
-	await _show_dialog("Mara pega o pé de cabra.", DialogLine.Presentation.ACTION)
+	await _show_dialog("Mara encontra o pé de cabra na despensa e o guarda na mochila.", DialogLine.Presentation.ACTION)
 	await _show_dialog(hint, DialogLine.Presentation.THOUGHT)
 
 
@@ -229,16 +229,16 @@ func _use_crowbar() -> void:
 	var crowbar := _find_item(3)
 	if crowbar == null:
 		if Level1Puzzle.crowbar_collected:
-			await _show_dialog("As barras continuam firmes.", DialogLine.Presentation.THOUGHT)
+			await _show_dialog("As barras continuam presas e Mara se pergunta por que alguém teria feito aquilo ali.", DialogLine.Presentation.THOUGHT)
 		else:
-			await _show_dialog("As barras parecem presas. Um pé de cabra talvez ajude.", DialogLine.Presentation.THOUGHT)
+			await _show_dialog("As barras do porão parecem velhas demais para serem apenas decoração. Talvez um pé de cabra ajude.", DialogLine.Presentation.THOUGHT)
 		return
 
 	crowbar.item_amount -= 1
 	if crowbar.item_amount <= 0:
 		player.inventory.erase(crowbar)
 
-	await _show_dialog("Com esforço, Mara afasta as barras e desce ao porão.", DialogLine.Presentation.ACTION)
+	await _show_dialog("Com esforço, Mara arranca as barras e desce ao porão, com a estranha sensação de que a casa não está bem.", DialogLine.Presentation.ACTION)
 	Level1Puzzle.save_player_inventory(player)
 	SaveData.level = "res://scenes/maps/basement.tscn"
 	SaveData.save_progress()

@@ -35,7 +35,7 @@ var is_dead := false
 @export var start_dialog: Array[DialogLine]
 
 
-var flashlight_battery = 100.0
+@export var flashlight_battery = 100.0
 
 
 func fadein():
@@ -65,7 +65,7 @@ func addItem(ItemID: int, Amount: int):
 		inventory.append(new_item)
 
 
-var health = 100.0
+@export var health = 100.0
 
 
 const HURT_SOUNDS = [
@@ -77,20 +77,20 @@ const HURT_SOUNDS = [
 
 
 # Stamina / sprinting
-const STAMINA_MAX := 100.0
+@export var STAMINA_MAX = 100.0
 var stamina: float = STAMINA_MAX
 var exhausted: bool = false
-
-const SPRINT_MULT := 1.8
-const EXHAUSTED_MULT := 0.45
-const STAM_DEPLETION_RATE := 17.0 # per second while sprinting
-const STAM_RECHARGE_RATE := 14.0  # per second when not exhausted
-const STAM_SLOW_RECHARGE := 5.0  # per second when exhausted
-const STAM_RECOVER_THRESHOLD := 25.0 # stamina needed to leave exhausted state
+@export var damage_mult = 1.0
+@export var SPRINT_MULT = 1.8
+@export var EXHAUSTED_MULT = 0.45
+@export var STAM_DEPLETION_RATE = 17.0 # per second while sprinting
+@export var STAM_RECHARGE_RATE = 14.0  # per second when not exhausted
+@export var STAM_SLOW_RECHARGE = 5.0  # per second when exhausted
+@export var STAM_RECOVER_THRESHOLD = 25.0 # stamina needed to leave exhausted state
 
 
 func take_damage(amount: float) -> void:
-	health = max(0.0, health - amount)
+	health = max(0.0, health - amount*damage_mult)
 
 	damage_animation.play("damage")
 	hurt_audio.stream = HURT_SOUNDS.pick_random()
@@ -128,7 +128,7 @@ func die() -> void:
 	get_tree().change_scene_to_file("res://scenes/UI/game_over.tscn")
 
 # Velocidade de movimento do jogador.
-const SPEED := 50.0
+@export var SPEED = 50.0
 
 
 # Define se o jogador pode se movimentar.
@@ -137,7 +137,9 @@ var can_move: bool = true
 
 
 # Lista de objetos com os quais o jogador pode interagir atualmente.
-var nearby_interactions: Array[ObjectInteraction] = []
+# O Level 2 usa um Area2D para a porta do metrô, então a lista precisa aceitar
+# qualquer nó que expõe o método `interact()` em vez de apenas `ObjectInteraction`.
+var nearby_interactions: Array[Node] = []
 
 
 func _ready() -> void:
@@ -173,7 +175,7 @@ func _process(_delta: float) -> void:
 
 	# Update stamina UI
 	if is_instance_valid(stam_bar):
-		stam_bar.value = stamina
+		stam_bar.value = clampf(stamina,0.0,100.0)
 
 	# Remove da lista qualquer objeto que não exista mais na cena.
 	_clean_interaction_list()
@@ -296,7 +298,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	interaction.interact()
 
 
-func add_interaction(interaction: ObjectInteraction) -> void:
+func add_interaction(interaction: Node) -> void:
 	# Evita adicionar o mesmo objeto mais de uma vez.
 	if interaction in nearby_interactions:
 		return
@@ -305,7 +307,7 @@ func add_interaction(interaction: ObjectInteraction) -> void:
 	nearby_interactions.append(interaction)
 
 
-func remove_interaction(interaction: ObjectInteraction) -> void:
+func remove_interaction(interaction: Node) -> void:
 	# Remove o objeto da lista de interações disponíveis.
 	nearby_interactions.erase(interaction)
 
@@ -322,14 +324,14 @@ func _clean_interaction_list() -> void:
 			nearby_interactions.remove_at(i)
 
 
-func _get_closest_interaction() -> ObjectInteraction:
+func _get_closest_interaction() -> Node:
 	# Se não houver objetos próximos, retorna null.
 	if nearby_interactions.is_empty():
 		return null
 
 	# Variáveis usadas para armazenar o objeto mais próximo
 	# e a distância até ele.
-	var closest: ObjectInteraction = null
+	var closest: Node = null
 	var closest_distance := INF
 
 	# Verifica todos os objetos disponíveis para interação.

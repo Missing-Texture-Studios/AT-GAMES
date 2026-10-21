@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal defeated
+@onready var hp_bar: ProgressBar = $DeathFade/Control/HPBar
 
 enum STATES {
 	IDLE,
@@ -126,9 +127,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	hp_bar.value = (health / max_health)*hp_bar.max_value
 	if is_defeated:
 		return
-
 	state_elapsed += delta
 	attack_cooldown_remaining = maxf(attack_cooldown_remaining - delta, 0.0)
 	_update_flashlight_damage(delta)
@@ -482,5 +483,4 @@ func _defeat() -> void:
 	fade_tween.set_ease(Tween.EASE_IN_OUT)
 	fade_tween.tween_property(death_fade_overlay, "color", Color.WHITE, 2.0)
 	await fade_tween.finished
-	# TODO: Set the destination once the ending scene exists, then enable this call.
-	# get_tree().change_scene_to_file("res://scenes/maps/level_1_ending.tscn")
+	get_tree().change_scene_to_file("res://scenes/maps/level_1_ending.tscn")

@@ -27,6 +27,7 @@ UISounds="*res://scripts/UI/button_sounds.gd"
 Settings="*res://scripts/settings.gd"
 WorldDepth="*res://scripts/world/world_depth_sorter.gd"
 Level1Puzzle="*res://scripts/objects/level1_puzzle.gd"
+Level2Puzzle="*res://scripts/objects/level2_puzzle.gd"
 SaveData="*uid://d1wf40bbljaao"
 
 [display]

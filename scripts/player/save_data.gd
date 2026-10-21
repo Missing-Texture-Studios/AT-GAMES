@@ -6,7 +6,11 @@ const SAVE_OBFUSCATION_KEY := "rising-sorrow/mara/level-v1"
 const DEFAULT_LEVEL := "res://scenes/maps/level_1.tscn"
 const ALLOWED_LEVELS := [
 	"res://scenes/maps/level_1.tscn",
-	"res://scenes/maps/basement.tscn"
+	"res://scenes/maps/basement.tscn",
+	"res://scenes/maps/level_1_ending.tscn",
+	"res://scenes/maps/level_2.tscn",
+	"res://scenes/maps/metro.tscn",
+	"res://scenes/maps/level_3.tscn"
 ]
 
 var level: String = DEFAULT_LEVEL
